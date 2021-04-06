@@ -73,4 +73,4 @@ class GameReview(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f'{self.game} | {self.rating_score}'
+        return f'{self.game} | rating: {self.rating_score}'
