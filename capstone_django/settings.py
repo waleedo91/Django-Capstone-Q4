@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'capstone_app'
+
+    # ADDED APPS
+    'capstone_app',
 ]
 
 MIDDLEWARE = [
