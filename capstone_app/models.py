@@ -67,7 +67,8 @@ class Game(models.Model):
 class Player(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=100, null=False, blank=False)
-    favorite_games = models.ForeignKey(Game, on_delete=models.SET_NULL)
+    favorite_games = models.ForeignKey(
+        Game, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
