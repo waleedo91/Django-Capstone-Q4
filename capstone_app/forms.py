@@ -27,8 +27,4 @@ class AddGameForm(forms.ModelForm):
         model = Game
         fields = (
             'name',
-            'genre',
-            'creation_date',
-            'total_rating',
-            'esrb_ratings',
         )

@@ -45,7 +45,7 @@ class Game(models.Model):
     name = models.CharField(max_length=50)
     genres = models.ForeignKey(GameGenre, on_delete=models.SET_NULL, null=True)
     released = models.DateField(auto_now_add=True)
-    background_image = models.ImageField()
+    background_image = models.ImageField(upload_to='gameimgs/', blank=True)
     rating = models.DecimalField(max_digits=3, decimal_places=2)
     esrb_rating = models.CharField(
         choices=CHOICES,
