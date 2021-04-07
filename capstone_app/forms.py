@@ -20,3 +20,15 @@ class UserChangeForm(UserChangeForm):
             'name',
             'favorite_games'
         )
+
+
+class AddGameForm(forms.ModelForm):
+    class Meta:
+        model = Game
+        fields = (
+            'name',
+            'genre',
+            'creation_date',
+            'total_rating',
+            'esrb_ratings',
+        )
