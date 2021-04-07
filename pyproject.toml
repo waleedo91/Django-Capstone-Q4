@@ -8,6 +8,7 @@ authors = ["Jason Mckee-Bakos <jasonmckee44@yahoo.com>"]
 python = "^3.9"
 Django = "^3.1.7"
 django-environ = "^0.4.5"
+Pillow = "^8.2.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.6"
