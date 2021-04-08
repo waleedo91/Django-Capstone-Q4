@@ -58,9 +58,10 @@ class Game(models.Model):
 
 class Player(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=100, null=False, blank=False)
+    name = models.CharField(max_length=100, null=False, blank=False, unique=True)
     favorite_games = models.ManyToManyField(
         Game, symmetrical=False, blank=True)
+    password = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name

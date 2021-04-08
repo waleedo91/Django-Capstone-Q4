@@ -1,19 +1,23 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from .models import Game, GameGenre, GameReview, Player
+from django.contrib.auth.models import User
 
 
-class SignupForm(UserCreationForm):
+class SignUpForm(UserCreationForm):
+    name = forms.CharField(max_length=100)
+
     class Meta:
-        model = Player
-        fields = (
-            'user',
-            'name',
-            'favorite_games'
-        )
+        model = User
+        fields = [
+        "name",
+        "username",
+        "password1",
+        "password2",
+        ]
 
 
-class UserChangeForm(UserChangeForm):
+class UpdateForm(UserChangeForm):
     class Meta:
         model = Player
         fields = (
