@@ -41,12 +41,13 @@ class Game(models.Model):
         ('T', 'Teen'),
         ('M', 'Mature'),
     ]
-
+    game_id = models.IntegerField(default=0)
     name = models.CharField(max_length=50)
-    genre = models.ForeignKey(GameGenre, on_delete=models.SET_NULL, null=True)
-    creation_date = models.DateField(auto_now_add=True)
-    total_rating = models.DecimalField(max_digits=3, decimal_places=2)
-    esrb_ratings = models.CharField(
+    genres = models.ForeignKey(GameGenre, on_delete=models.SET_NULL, null=True)
+    released = models.DateField(auto_now_add=True)
+    background_image = models.ImageField(upload_to='gameimgs/', blank=True)
+    rating = models.DecimalField(max_digits=3, decimal_places=2)
+    esrb_rating = models.CharField(
         choices=CHOICES,
         max_length=50
     )
