@@ -1,24 +1,34 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
-from capstone_app.models import Game, GameGenre, Player, GameReview
-from django.contrib.auth.decorators import login_required
+from .models import Game, GameGenre, Player, GameReview
+# from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+# Index View
+def indexview(request):
+    reviews = GameReview.objects.all().order_by('-created_at')
+    html = 'index.html'
+    return render(
+        request,
+        html,
+        {"reviews": reviews}
+    )
+        # user=request.user,
+        # game=request.game,
+        # rating_score=request.rating_score,
+        # body=request.body,
+
 # Player View
 def playerview(request, user_id):
-    new_player = Player.objects.create(
-        id=user_id,
+    new_player = Player.objects.get(
+        id=user_id
     )
-    return new_player
-
-    # def user_detail(request, user_id):
-    # requested_user = TwitterUser.objects.get(id=user_id)
-    # return requested_user
-
-
+    return render(
+        request, 
+        'player.html',
+        {'new_player': new_player}
+    )
 
 # Game View
-
-# Index View
 
 # Signup View
 

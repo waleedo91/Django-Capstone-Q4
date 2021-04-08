@@ -7,6 +7,17 @@
     <title>~Game Review~</title>
 </head>
 <body>
-    <h2>welcome</h2>
+    <h1>Welcome</h1>
+    <ul>
+    {% for r in reviews %}
+        <li>
+            <h3>{{r.user}}</h3>
+        </li>
+        <h3>{{r.game}}</h3>
+        <h3>{{r.rating_score}}</h3>
+        <h3>{{r.body}}</h3>
+        <h3>{{r.created_at}}</h3>
+    {% endfor %}
+    </ul>
 </body>
 </html>
