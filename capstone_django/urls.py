@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+# Added the Player and Index urls
 from capstone_app.views import playerview, indexview
 
 urlpatterns = [

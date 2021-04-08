@@ -3,6 +3,9 @@ from .models import Game, GameGenre, Player, GameReview
 # from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+# Made the Inexview and the player view and they should be working
+
 # Index View
 def indexview(request):
     reviews = GameReview.objects.all().order_by('-created_at')
