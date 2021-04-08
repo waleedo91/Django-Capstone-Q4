@@ -41,7 +41,7 @@ class Game(models.Model):
         ('T', 'Teen'),
         ('M', 'Mature'),
     ]
-    game_id = models.IntegerField(default=0)
+    game_id = models.AutoField(primary_key=True, editable=False)
     name = models.CharField(max_length=50)
     genres = models.ForeignKey(GameGenre, on_delete=models.SET_NULL, null=True)
     released = models.DateField(auto_now_add=True)
