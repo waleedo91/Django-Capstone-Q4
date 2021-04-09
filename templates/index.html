@@ -8,5 +8,12 @@
 </head>
 <body>
     <h2>welcome</h2>
+    <ul>
+    {% for game in games %}
+    <li>
+    {{ game }}- {{ game.game_id }}
+    </li>
+    {% endfor %}
+    </ul>
 </body>
 </html>

@@ -25,10 +25,10 @@ def create_games(request):
             break
 
 def gameview(request, game_id):
-    # game id = api_req(id)
-    # check to see if game data exists
     game = Game.objects.get(game_id=game_id)
     return render(request, 'game.html', {'game': game})
-    # else
-    # Search API for game and add to database
+
+def games(request):
+    games = Game.objects.all()
+    return render(request, 'index.html', {'games': games})
 
