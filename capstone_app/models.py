@@ -35,25 +35,25 @@ class GameGenre(models.Model):
 
 
 class Game(models.Model):
-    CHOICES = [
-        ('E10', 'E10'),
-        ('E', 'Everyone'),
-        ('T', 'Teen'),
-        ('M', 'Mature'),
-    ]
-    game_id = models.IntegerField(default=0)
     name = models.CharField(max_length=50)
-    genres = models.ForeignKey(GameGenre, on_delete=models.SET_NULL, null=True)
-    released = models.DateField(auto_now_add=True)
-    background_image = models.ImageField(upload_to='gameimgs/', blank=True)
-    rating = models.DecimalField(max_digits=3, decimal_places=2)
-    esrb_rating = models.CharField(
-        choices=CHOICES,
-        max_length=50
-    )
+    game_id = models.IntegerField(default=None)
 
     def __str__(self):
         return self.name
+    # CHOICES = [
+    #     ('E10', 'E10'),
+    #     ('E', 'Everyone'),
+    #     ('T', 'Teen'),
+    #     ('M', 'Mature'),
+    # ]
+    # genres = models.ForeignKey(GameGenre, on_delete=models.SET_NULL, null=True)
+    # released = models.DateField(auto_now_add=True)
+    # background_image = models.ImageField(upload_to='gameimgs/', blank=True)
+    # rating = models.DecimalField(max_digits=3, decimal_places=2)
+    # esrb_rating = models.CharField(
+    #     choices=CHOICES,
+    #     max_length=50
+    # )
 
 
 class Player(models.Model):
