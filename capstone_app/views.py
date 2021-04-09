@@ -4,8 +4,8 @@ from .models import Game, GameGenre, Player, GameReview
 
 # Create your views here.
 
-# Made the Inexview and the player view and they should be working
 
+''' Made the Indexview and the player view and they should be working'''
 # Index View
 def indexview(request):
     reviews = GameReview.objects.all().order_by('-created_at')
@@ -20,6 +20,7 @@ def indexview(request):
         # rating_score=request.rating_score,
         # body=request.body,
 
+'''Made the user show up on player htmlpage'''
 # Player View
 def playerview(request, user_id):
     new_player = Player.objects.get(
