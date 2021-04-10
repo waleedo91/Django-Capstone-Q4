@@ -1,8 +1,17 @@
 <!-- get information for game from api (request.rating) -->
-<h2>{{ game.name }}: rate score {{ game.rating }}</h2>
-<p>
-    release date: {{ game.creation_date }}
-    genre: {{ game.genre }}
-    rated {{ game.esrb_ratings }}
+<h2>{{ game.name }}: rate score {{ game.rating }}/{{ game.metacritic }}</h2>
+<img src={{ game.background_image }} style="width:50%; height:50%;">
+<div class="game_tags">
+    release date: {{ game.released }} 
+    <br>
+    genre: 
+    {% for item in game.genres %}
+    {{ item.name }},
+    {% endfor %}
+    <br>
+     <a href={{ game.website }}>{{game.name}}'s website</a>
+    <div id="game_description">
+        {{ game.description_raw }}
+    </div>
 
-</p>
+</div>
