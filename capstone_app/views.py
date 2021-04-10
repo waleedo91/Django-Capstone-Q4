@@ -12,15 +12,12 @@ def create_games(request):
     playstation_4_games = 'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&dates=2019-01-01,2019-12-31&ordering=-added&language=en'
     response = requests.request("GET", playstation_4_games)
     res_dict = response.json()
-    print(res_dict)
     return render(request, 'index.html', {'dict': res_dict})
 
 def gameview(request, game_id):
-    game_id = 21
     url = f'https://api.rawg.io/api/games/{ game_id }?key=1d0a743d255d48418ee551a3eb563813'
     game = requests.request("GET", url)
     resp = game.json()
-    print(resp)
     return render(request, 'game.html', {'game': resp})
 
 def games(request):
