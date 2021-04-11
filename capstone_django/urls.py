@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('player/<int:user_id>/', playerview, name="playerview"),
-    path('review/', ReviewsView.as_view(), name='review')
+    path('reviews/', ReviewsView.as_view(), name='review')
 ]
