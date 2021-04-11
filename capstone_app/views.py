@@ -11,6 +11,8 @@ import json
 # from .models import Game, GameGenre, GameReview, Player
 
 import requests
+
+from .models import Game
 # Create your views here.
 
 def index(request):
