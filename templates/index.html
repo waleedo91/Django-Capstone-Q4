@@ -1,13 +1,32 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <title>~Game Review~</title>
   </head>
+  <header>
+    {% include 'navbar.html' %}
+  </header>
   <body>
-    <h1>Hello World</h1>
+    {% block content %}
+    <div class="scrolling-wrapper">
+      {% for game in game.results %}
+        <div class="card">
+          {{ game.name }}
+          <br>
+          {{ game.released }}
+          <br>
+          {{ game.background_image }}
+          <br>
+          {{ game.rating }}
+        </div>
+      {% endfor %}
+    </div>
+    <!-- <h1>Hello World</h1>
     {% for game in game.results %}
     <ul>
       <li>{{ game.name }}</li>
@@ -15,6 +34,8 @@
       <li>{{ game.background_image }}</li>
       <li>{{ game.rating }}</li>
     </ul>
-    {% endfor %}
+    {% endfor %} -->
   </body>
+  {% endblock %}
 </html>
+
