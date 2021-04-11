@@ -4,7 +4,7 @@
     <ul>
         {% for item in results.results %}
         <li>
-        {{ item.name }},
+            <a href=http://127.0.0.1:8000/game/{{ item.id }}>{{item.name}}</a>
         </li>
         {% endfor %}
 
