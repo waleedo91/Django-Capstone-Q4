@@ -2,16 +2,11 @@ html,
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow: inherit;
 }
-#canvas {
-  display: block;
+#canva {
+  z-index: -1;
   width: 100%;
   height: 100%;
-
-  background: black;
-}
-
-h1 {
-  color: white;
+  background: white;
 }

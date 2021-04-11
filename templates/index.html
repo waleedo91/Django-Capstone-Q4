@@ -14,9 +14,11 @@
     />
   </head>
   <body>
-    
-
+    {% for g in games.results %}
+        <h1 class='main'>{{ g.name }}</h1>
+    {% endfor %}
     <canvas id=canvas>
+
     <script src="{% static '/js/base.js' %}"></script>
   </body>
 </html>
