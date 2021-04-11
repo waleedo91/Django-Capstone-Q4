@@ -18,7 +18,7 @@ from django.urls import path, include
 from capstone_app import views
 
 urlpatterns = [
-    path('', views.homeview, name='homeview'),
+    path('', views.homeview, name='home'),
     path('game/<int:game_id>/', views.gameview, name='gameview'),
     path('search/', views.searchview, name='search_result'),
     path('admin/', admin.site.urls),

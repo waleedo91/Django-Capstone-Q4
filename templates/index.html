@@ -8,8 +8,9 @@
 </head>
 <body>
     <h2>welcome</h2>
-    <form class='search' action='{% url "search_result" %}' method='GET'>
-        <input name='query' type='text' placeholder='Search here..'>
+    <form action='{% url "search_result" %}' method='post'>
+        {% csrf_token %}
+        <input name='query' type='text' placeholder='Search for a game here..'>
         <button type='submit' name='button'>Submit</button>
     </form>
 </body>

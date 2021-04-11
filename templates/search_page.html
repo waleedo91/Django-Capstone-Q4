@@ -1,7 +1,13 @@
 <h1>search results</h1>
+<body>
+    <!-- {{ results.results }} -->
+    <ul>
+        {% for item in results.results %}
+        <li>
+        {{ item.name }},
+        </li>
+        {% endfor %}
 
-{% for item in results %}
-<li>
-  {{ item }}
-</li>
-{% endfor %}
+        </li>
+</ul> -->
+</body>
