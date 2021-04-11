@@ -1,20 +1,24 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from .models import Game, GameGenre, Player, GameReview
+from django.views.generic import View
 # from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
-''' Made the Indexview and the player view and they should be working'''
+''' Made the ReviewsView and the player view and they should be working'''
+
+""" ReviewsView should show all reviews """
 # Index View
-def indexview(request):
-    reviews = GameReview.objects.all().order_by('-created_at')
-    html = 'index.html'
-    return render(
-        request,
-        html,
-        {"reviews": reviews}
-    )
+class ReviewsView(View):
+    def get(self, request):
+        reviews = GameReview.objects.all().order_by('-created_at')
+        html = 'Reviews.html'
+        return render(
+            request,
+            html,
+            {"reviews": reviews}
+        )
         # user=request.user,
         # game=request.game,
         # rating_score=request.rating_score,
