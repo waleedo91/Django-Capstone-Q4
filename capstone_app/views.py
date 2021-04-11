@@ -6,24 +6,15 @@ from django.utils.text import slugify
 from django.core.paginator import Paginator
 from django.urls import reverse
 from django.db.models import Avg
+import json
 
 # from .models import Game, GameGenre, GameReview, Player
 
 import requests
 # Create your views here.
 
-
 def index(request):
-    url = 'https://rawg-video-games-database.p.rapidapi.com/games'
-
-    headers = {
-        'x-rapidapi-key': "9bb829cd6cmshaf5a1d3c29abfd5p1e73d1jsnaa321c9a0d6e",
-        'x-rapidapi-host': "rawg-video-games-database.p.rapidapi.com"
-    }
-
-    response = requests.request("GET", url, headers=headers)
-
-    game_data = response.json()
-    return render(request, 'index.html', {
-        'game': game_data,
-    })
+    url = 'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&metacritic=%2295,100%22&page_size=40'
+    response = requests.request("GET", url)
+    resp = response.json()
+    return render(request, 'index.html', {'game': resp})

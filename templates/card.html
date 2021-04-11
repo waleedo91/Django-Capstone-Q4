@@ -1,0 +1,15 @@
+<!-- Cards displaying on the index.html page -->
+{% block content %}
+    <div class="scrolling-wrapper">
+      {% for game in game.results %}
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src={{ game.background_image }} alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ game.name }}</h5>
+            <p class="card-text">{{ game.released }}</p>
+            <p class="card-text">{{ game.rating }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+{% endblock %}
