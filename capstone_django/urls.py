@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 # Added the Player and Index urls
-from capstone_app.views import playerview, ReviewsView
+from capstone_app.views import PlayerView, ReviewsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('player/<int:user_id>/', playerview, name="playerview"),
+    path('player/<int:user_id>/', PlayerView.as_view(), name="playerview"),
     path('reviews/', ReviewsView.as_view(), name='review')
 ]

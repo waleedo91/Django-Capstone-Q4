@@ -26,15 +26,16 @@ class ReviewsView(View):
 
 '''Made the user show up on player htmlpage'''
 # Player View
-def playerview(request, user_id):
-    new_player = Player.objects.get(
-        id=user_id
-    )
-    return render(
-        request, 
-        'player.html',
-        {'new_player': new_player}
-    )
+class PlayerView(View):
+    def get(self, request, user_id):
+        new_player = Player.objects.get(
+            id=user_id
+        )
+        return render(
+            request, 
+            'player.html',
+            {'new_player': new_player}
+        )
 
 # Game View
 
