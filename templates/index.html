@@ -1,20 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>~Game Review~</title>
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/css/base.css' %}"
+    />
   </head>
   <body>
-    <h1>Hello World</h1>
-    {% for game in game.results %}
-    <ul>
-      <li>{{ game.name }}</li>
-      <li>{{ game.released }}</li>
-      <li>{{ game.background_image }}</li>
-      <li>{{ game.rating }}</li>
-    </ul>
-    {% endfor %}
+    
+
+    <canvas id=canvas>
+    <script src="{% static '/js/base.js' %}"></script>
   </body>
 </html>
