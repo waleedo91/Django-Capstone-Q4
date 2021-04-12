@@ -14,7 +14,7 @@ body {
   z-index: -1;
 }
 
-/* Be sure to keep not add overflow for sticky to work*/
+/* Be sure to not add overflow for sticky to work*/
 .head {
   display: block;
   position: sticky;
