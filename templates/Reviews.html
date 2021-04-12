@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>~Game Review~</title>
+</head>
+<body>
+    
+    <h1>Welcome</h1>
+    {% comment %} made lines 13 to 21 render in the homepage {% endcomment %}
+    <ul>
+    {% for r in reviews %}
+        <li>
+            <h3>Name: {{r.user}}</h3>
+        </li>
+        <h3>Game: {{r.game}}</h3>
+        <h3>Rating: {{r.rating_score}}</h3>
+        <h3>{{r.body}}</h3>
+        <h3>When: {{r.created_at}}</h3>
+    {% endfor %}
+    </ul>
+</body>
+</html>
