@@ -8,10 +8,8 @@ import requests
 
 """Imported from App"""
 from .models import Game, GameGenre, Player, GameReview
-from .forms import GameReviewForm
+from .forms import GameReviewForm, SignupForm
 
-
-"""imported secret API key"""
 
 """Created for homepage to display popular games"""
 
@@ -31,6 +29,31 @@ def gameview(request, game_id):
     game = requests.request("GET", url)
     resp = game.json()
     return render(request, 'game.html', {'game': resp})
+
+
+"""Create a new profile for user"""
+
+
+class SignUp(View):
+
+    def get(self, request):
+        form = SignupForm
+        return render(request, 'registration/signup.html', {'form': form})
+
+    def post(self, request):
+        # if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            new_user = Player.objects.create(
+                user=data['user'],
+                password=data['password'],
+                name=data['name'],
+            )
+            return render(request, 'index.html', {'user': new_user})
+
+        form = SignupForm()
+        return render(request, 'registration/signup.html', {'form': form})
 
 
 """ ReviewsView should show all reviews """
@@ -86,8 +109,6 @@ def add_review(request):
     return render(request, 'newreview.html', {'form': form})
 
 
-# Game View
 
-# Signup View
 
 # Game Genre View
