@@ -1,20 +1,13 @@
-<<<<<<< HEAD
-from django.shortcuts import render, HttpResponseRedirect
-from .models import GameReview, Player
-from django.views import View
-import requests
-from .forms import GameReviewForm, SignupForm
-
-=======
 from django.http.response import Http404
 import requests
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from .models import Game, GameGenre, Player, GameReview
 from django.views.generic import View
 # from django.contrib.auth.decorators import login_required
+from .forms import GameReviewForm, SignupForm
+
 
 # from .models import Game, GameGenre, GameReview, Player
->>>>>>> 9b077b42a90aa9e171ab2232a47873c114371d34
 
 # Create your views here.
 # gets game id from url and returns game information
