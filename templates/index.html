@@ -4,20 +4,34 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>~Game Review~</title>
     <title></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link
       rel="stylesheet"
       type="text/css"
       href="{% static '/css/base.css' %}"
     />
   </head>
+  <header>
+    {% include 'navbar.html' %}
+  </header>
   <body>
-    {% for g in games.results %}
-        <h1 class='main'>{{ g.name }}</h1>
-    {% endfor %}
+
+
+    {% include 'card.html' %}
+    {% comment %} Canvas used for background {% endcomment %}
     <canvas id=canvas>
+
+
+
+
+
+
 
     <script src="{% static '/js/base.js' %}"></script>
   </body>

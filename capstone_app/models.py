@@ -34,12 +34,8 @@ class GameGenre(models.Model):
         return self.genre
 
 class Game(models.Model):
-    name = models.CharField(max_length=100, blank=True, null=True)
-    genre = models.CharField(max_length=100, blank=True, null=True)
-    esrb_rating = models.CharField(max_length=20, blank=True, null=True)
-    rating = models.DecimalField(max_digits=3, decimal_places=2)
-    released = models.DateField(auto_now_add=True)
-    slug = models.SlugField(default='test')
+    name = models.CharField(max_length=50)
+    game_id = models.IntegerField(default=None)
 
     def __str__(self):
         return self.name
