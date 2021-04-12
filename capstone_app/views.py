@@ -4,11 +4,16 @@ from django.shortcuts import render, reverse, HttpResponseRedirect
 from .models import Game, GameGenre, Player, GameReview
 from django.views.generic import View
 # from django.contrib.auth.decorators import login_required
-
-# from .models import Game, GameGenre, GameReview, Player
-
+from django.http import response
 # Create your views here.
-# gets game id from url and returns game information
+
+
+def index(request):
+    url = 'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&metacritic=%2295,100%22&page_size=40'
+    response = requests.request("GET", url)
+    resp = response.json()
+    return render(request, 'index.html', {'game': resp})
+
 
 def gameview(request, game_id):
     url = f'https://api.rawg.io/api/games/{ game_id }?key=1d0a743d255d48418ee551a3eb563813'
@@ -21,6 +26,8 @@ def gameview(request, game_id):
 
 """ ReviewsView should show all reviews """
 # Index View
+
+
 class ReviewsView(View):
     def get(self, request):
         reviews = GameReview.objects.all().order_by('-created_at')
@@ -35,15 +42,18 @@ class ReviewsView(View):
         # rating_score=request.rating_score,
         # body=request.body,
 
+
 '''Made the user show up on player htmlpage'''
 # Player View
+
+
 class PlayerView(View):
     def get(self, request, user_id):
         new_player = Player.objects.get(
             id=user_id
         )
         return render(
-            request, 
+            request,
             'player.html',
             {'new_player': new_player}
         )

@@ -92,6 +92,7 @@ DATABASES = {
         'PORT': env("DATABASE_PORT"),
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'API': env("API"),
     }
 }
 
