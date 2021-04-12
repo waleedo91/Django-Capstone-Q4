@@ -9,10 +9,11 @@ from .models import GameGenre, Game, Player, GameReview
 -Waleed'''
 
 
-class GameReviewForm(forms.Form):
-    game = forms.CharField(max_length=40)
-    rating_score = forms.DecimalField(max_value=10, decimal_places=2)
-    body = forms.CharField(max_length=100)
+class GameReviewForm(forms.ModelForm):
+    
+    class Meta:
+        model = GameReview
+        fields = ('game', 'rating_score', 'body')
 
 
 class SignupForm(UserCreationForm):
