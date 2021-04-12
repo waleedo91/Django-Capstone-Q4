@@ -1,4 +1,13 @@
-<h2 id='game_title'>{{ game.name }}: rate score {{ game.rating }}/{{ game.metacritic }}</h2>
+<!-- get information for game from api (request.rating) -->
+{% if game.rating != 0 and game.metacritic != None %}
+    <h2 id='game_title'>{{ game.name }}: rate score {{ game.rating }}/{{ game.metacritic }}</h2>
+{% elif game.rating == 0 and game.metacritic != None %}
+    <h2 id='game_title'>{{ game.name }}: rate score {{ game.metacritic }}</h2>
+{% elif game.rating != 0 and game.metacritic == None %}
+    <h2 id='game_title'>{{ game.name }}: rate score {{ game.rating }}</h2>
+{% elif game.rating == 0 and game.metacritic == None %}
+    <h2 id='game_title'>{{ game.name }}: rate score (NOT RATED)</h2>
+{% endif %}
 <img src={{ game.background_image }} style="width:50%; height:50%;" id="game_image">
 <div class="game_tags">
     release date: {{ game.released }} 
