@@ -9,6 +9,7 @@ import json
 import requests
 # Create your views here.
 # gets game id from url and returns game information
+
 def gameview(request, game_id):
     url = f'https://api.rawg.io/api/games/{ game_id }?key=1d0a743d255d48418ee551a3eb563813'
     game = requests.request("GET", url)
