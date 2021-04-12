@@ -20,7 +20,7 @@ from capstone_app import views
 urlpatterns = [
     path('game/<int:game_id>/', views.gameview, name='gameview'),
     path('add_review/', views.add_review, name='add_review'),
-    path('accounts/new/', views.signup_view, name='signup'),
+    path('accounts/new/', views.SignUp.as_view(), name='signup'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 

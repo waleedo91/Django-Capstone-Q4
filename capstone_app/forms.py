@@ -21,7 +21,6 @@ class SignupForm(forms.Form):
     user = forms.CharField(max_length=100)
     password = forms.CharField(widget=PasswordInput)
     name = forms.CharField(max_length=100)
-    favorite_games = forms.CharField(max_length=100)
 
 
 
