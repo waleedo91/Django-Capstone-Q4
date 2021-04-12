@@ -10,9 +10,9 @@ from .models import GameGenre, Game, Player, GameReview
 
 
 class GameReviewForm(forms.Form):
-    game = forms.ModelsChoiceField(queryset=Game.objects.all())
-    rating_score = forms.DecimalField(max_value=3, decimal_places=2)
-    body = forms.CharField(widget=Textarea)
+    game = forms.CharField(max_length=40)
+    rating_score = forms.DecimalField(max_value=10, decimal_places=2)
+    body = forms.CharField(max_length=100)
 
 
 class SignupForm(UserCreationForm):

@@ -1,7 +1,9 @@
 from django.http.response import Http404
-from django.shortcuts import render
-from .models import Game
+from django.shortcuts import render, HttpResponseRedirect
+from .models import GameReview
+from django.contrib.auth.decorators import login_required
 import requests
+from .forms import GameReviewForm
 import json
 
 # Create your views here.
@@ -12,3 +14,17 @@ def gameview(request, game_id):
     resp = game.json()
     return render(request, 'game.html', {'game': resp})
 
+def add_review(request):
+    if request.method == 'POST':
+        form = GameReviewForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            GameReview.objects.create(
+                game=data['game'],
+                rating_score=data['rating_score'],
+                body = data['body']
+            )
+            return HttpResponseRedirect('/')
+        
+    form = GameReviewForm()
+    return render(request, 'newreview.html', {'form': form})
