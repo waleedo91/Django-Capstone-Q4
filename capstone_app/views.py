@@ -1,9 +1,9 @@
 from django.http.response import Http404
 from django.shortcuts import render, HttpResponseRedirect
-from .models import GameReview
+from .models import GameReview, Player
 from django.contrib.auth.decorators import login_required
 import requests
-from .forms import GameReviewForm
+from .forms import GameReviewForm, SignupForm
 import json
 
 # Create your views here.
@@ -28,3 +28,19 @@ def add_review(request):
         
     form = GameReviewForm()
     return render(request, 'newreview.html', {'form': form})
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            new_user = Player.objects.create(
+                user=data['user'],
+                password=data['password'],
+                name=data['name'],
+                favorite_games=data['favorite_games']
+            )
+            return render(request, 'index.html', {'user_new': new_user})
+
+    form = SignupForm()
+    return render(request, 'registration/signup.html', {'form': form})

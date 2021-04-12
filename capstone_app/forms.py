@@ -1,6 +1,7 @@
 from django import forms
 from django.forms.widgets import Textarea
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.forms.widgets import PasswordInput
 
 from .models import GameGenre, Game, Player, GameReview
 
@@ -16,14 +17,12 @@ class GameReviewForm(forms.ModelForm):
         fields = ('game', 'rating_score', 'body')
 
 
-class SignupForm(UserCreationForm):
-    class Meta:
-        model = Player
-        fields = (
-            'user',
-            'name',
-            'favorite_games'
-        )
+class SignupForm(forms.Form):
+    user = forms.CharField(max_length=100)
+    password = forms.CharField(widget=PasswordInput)
+    name = forms.CharField(max_length=100)
+    favorite_games = forms.CharField(max_length=100)
+
 
 
 class UserChangeForm(UserChangeForm):
