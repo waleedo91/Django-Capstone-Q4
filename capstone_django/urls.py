@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from capstone_app import views
 
-from capstone_app.views import index
+# from capstone_app.views import index
 # Added the Player and Index urls
 from capstone_app.views import PlayerView, ReviewsView
 
@@ -27,7 +27,7 @@ urlpatterns = [
     path('search/', views.searchview, name='search_result'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', index, name='home'),
+    # path('', index, name='home'),
     path('player/<int:user_id>/', PlayerView.as_view(), name="playerview"),
     path('reviews/', ReviewsView.as_view(), name='review')
 ]
