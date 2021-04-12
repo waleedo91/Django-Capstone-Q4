@@ -14,6 +14,7 @@ def gameview(request, game_id):
     resp = game.json()
     return render(request, 'game.html', {'game': resp})
 
+@login_required
 def add_review(request):
     if request.method == 'POST':
         form = GameReviewForm(request.POST)
