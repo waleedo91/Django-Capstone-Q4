@@ -54,7 +54,8 @@ class Player(models.Model):
 
 class GameReview(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, null=True)
+    # game = models.ForeignKey(Game, on_delete=models.CASCADE, null=True)
+    game = models.CharField(max_length=50)
     rating_score = models.IntegerField(null=True, blank=True)
     body = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)

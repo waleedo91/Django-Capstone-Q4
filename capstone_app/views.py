@@ -1,14 +1,19 @@
-from django.http.response import Http404
-import requests
-from django.shortcuts import render, reverse, HttpResponseRedirect
-from .models import Game, GameGenre, Player, GameReview
-from django.views.generic import View
-# from django.contrib.auth.decorators import login_required
-from django.http import response
-
-# imported secret API key.
 from capstone_django.settings import API
-# Create your views here.
+from django.http.response import Http404
+from django.shortcuts import render, reverse, HttpResponseRedirect
+from django.views.generic import View
+from django.http import response
+from django.contrib.auth.decorators import login_required
+import requests
+
+"""Imported from App"""
+from .models import Game, GameGenre, Player, GameReview
+from .forms import GameReviewForm
+
+
+"""imported secret API key"""
+
+"""Created for homepage to display popular games"""
 
 
 def index(request):
@@ -18,6 +23,9 @@ def index(request):
     return render(request, 'index.html', {'game': resp})
 
 
+"""Detailed view for a specific game via id"""
+
+
 def gameview(request, game_id):
     url = f'https://api.rawg.io/api/games/{ game_id }?key={API}'
     game = requests.request("GET", url)
@@ -25,10 +33,7 @@ def gameview(request, game_id):
     return render(request, 'game.html', {'game': resp})
 
 
-''' Made the ReviewsView and the player view and they should be working'''
-
 """ ReviewsView should show all reviews """
-# Index View
 
 
 class ReviewsView(View):
@@ -46,8 +51,7 @@ class ReviewsView(View):
         # body=request.body,
 
 
-'''Made the user show up on player htmlpage'''
-# Player View
+'''View created to display User profile page'''
 
 
 class PlayerView(View):
@@ -61,10 +65,29 @@ class PlayerView(View):
             {'new_player': new_player}
         )
 
+
+"""View to create a review on specific game by User. Login required"""
+
+
+@login_required
+def add_review(request):
+    if request.method == 'POST':
+        form = GameReviewForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            GameReview.objects.create(
+                game=data['game'],
+                rating_score=data['rating_score'],
+                body=data['body']
+            )
+            return HttpResponseRedirect('/')
+
+    form = GameReviewForm()
+    return render(request, 'newreview.html', {'form': form})
+
+
 # Game View
 
 # Signup View
 
 # Game Genre View
-
-# Game Review View
