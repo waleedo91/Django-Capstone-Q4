@@ -22,5 +22,5 @@ urlpatterns = [
     path('game/<int:game_id>/', views.gameview, name='gameview'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', views.index, name='home'),
+    path('', include('capstone_app.urls')),
 ]

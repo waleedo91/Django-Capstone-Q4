@@ -1,12 +1,9 @@
 from django.http import response
 from django.shortcuts import render
 import requests
-from capstone_django.settings import DATABASES
 
 from .models import Game
 # Create your views here.
-
-# url = f"https://api.rawg.io/api/games?key={{DATABASES.API}}"
 
 
 def index(request):
