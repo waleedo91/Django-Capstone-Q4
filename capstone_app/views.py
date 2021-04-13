@@ -18,6 +18,30 @@ def gameview(request, game_id):
     resp = game.json()
     return render(request, 'game.html', {'game': resp})
 
+
+def gameslist(request):
+    gameslist = []
+    exit_flag = False
+    while not exit_flag:
+        page = 1
+        url = f'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&page={ page }&page_size=40'
+        response = requests.request('GET', url)
+        resp = response.json()
+        try:
+            for item in resp['results']:
+                gameslist.append(item['name'])
+
+
+            page += 1
+            print(page)
+        except ConnectionRefusedError:
+            exit_flag = True
+            print('exiting')
+
+    print(len(gameslist))
+    return render(request, 'index.html', {})
+
+
 def searchview(request):
     search_results = request.POST.get('query')
     url = f'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&page_size=1000&search="{ search_results }"'
