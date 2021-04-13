@@ -19,11 +19,17 @@
         >
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/user/{{request.user.id}}">Profile</a>
+        <a class="nav-link" href="/player/{{request.user.id}}">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/reviews">All reviews</a>
       </li>
     </ul>
     <span class="navbar-text">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/accounts/new/">Signup</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="/accounts/login/">Login</a>
         </li>

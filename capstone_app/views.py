@@ -15,7 +15,7 @@ from .forms import GameReviewForm, SignupForm
 
 
 def index(request):
-    url = f'https://api.rawg.io/api/games?key={API}&metacritic=%2295,100%22&page_size=40'
+    url = f'https://api.rawg.io/api/games?key={API}&metacritic=%60,100%22&page_size=40&dates=2015-01-01,2020-12-31&ordering=-metacritic'
     response = requests.request("GET", url)
     resp = response.json()
     return render(request, 'index.html', {'game': resp})
