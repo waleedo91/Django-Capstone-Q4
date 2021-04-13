@@ -109,6 +109,4 @@ def add_review(request):
     return render(request, 'newreview.html', {'form': form})
 
 
-
-
 # Game Genre View
