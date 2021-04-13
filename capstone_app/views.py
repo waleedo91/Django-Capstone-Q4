@@ -3,6 +3,7 @@ from django.views.generic import View
 from django.shortcuts import render, HttpResponseRedirect
 import requests
 
+
 # API must be set in env and settings
 from capstone_django.settings import API
 
@@ -108,5 +109,15 @@ def add_review(request):
     form = GameReviewForm()
     return render(request, 'newreview.html', {'form': form})
 
+
+def handler404(request, exception):
+    response = render(request, '404.html')
+    response.status = 404
+    return response
+
+
+def handler500(request):
+    data = {}
+    return render(request, '500.html', data)
 
 # Game Genre View
