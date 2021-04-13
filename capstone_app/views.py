@@ -1,14 +1,14 @@
-from capstone_django.settings import API
-from django.http.response import Http404
-from django.shortcuts import render, reverse, HttpResponseRedirect
-from django.views.generic import View
-from django.http import response
 from django.contrib.auth.decorators import login_required
+from django.views.generic import View
+from django.shortcuts import render, HttpResponseRedirect
 import requests
 
-"""Imported from App"""
-from .models import Game, GameGenre, Player, GameReview
+# API must be set in env and settings
+from capstone_django.settings import API
+
+# Imported from capstone_app
 from .forms import GameReviewForm, SignupForm
+from .models import Game, GameGenre, Player, GameReview
 
 
 """Created for homepage to display popular games"""
