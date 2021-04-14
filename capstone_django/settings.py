@@ -99,6 +99,9 @@ DATABASES = {
 
 SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
 
+"""API key from env"""
+API = os.environ.get('API')
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

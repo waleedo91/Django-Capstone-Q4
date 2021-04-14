@@ -1,3 +1,4 @@
+import django
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -40,27 +41,15 @@ class Game(models.Model):
 
     def __str__(self):
         return self.name
-    # CHOICES = [
-    #     ('E10', 'E10'),
-    #     ('E', 'Everyone'),
-    #     ('T', 'Teen'),
-    #     ('M', 'Mature'),
-    # ]
-    # genres = models.ForeignKey(GameGenre, on_delete=models.SET_NULL, null=True)
-    # released = models.DateField(auto_now_add=True)
-    # background_image = models.ImageField(upload_to='gameimgs/', blank=True)
-    # rating = models.DecimalField(max_digits=3, decimal_places=2)
-    # esrb_rating = models.CharField(
-    #     choices=CHOICES,
-    #     max_length=50
-    # )
 
 
 class Player(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=100, null=False, blank=False)
-    favorite_games = models.ManyToManyField(
-        Game, symmetrical=False, blank=True)
+    user = models.CharField(max_length=20)
+    password = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, null=False, blank=False)
+    favorite_games = models.CharField(max_length=100, null=True, blank=True)
+    registration_date = models.DateField(default=django.utils.timezone.now)
+
 
     def __str__(self):
         return self.name
@@ -68,7 +57,8 @@ class Player(models.Model):
 
 class GameReview(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, null=True)
+    # game = models.ForeignKey(Game, on_delete=models.CASCADE, null=True)
+    game = models.CharField(max_length=50)
     rating_score = models.IntegerField(null=True, blank=True)
     body = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
