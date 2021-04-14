@@ -28,7 +28,6 @@ urlpatterns = [
         GameAutocomplete.as_view(),
         name='game-autocomplete',
     ),
-    path('', views.homeview, name='home'),
     path('game/<int:game_id>/', views.gameview, name='gameview'),
     path('search/', views.searchview, name='search_result'),
     path('create_gameslist/', views.gameslist, name='gameslist'),

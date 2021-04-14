@@ -8,7 +8,7 @@ import requests
 from capstone_django.settings import API
 
 # Imported from capstone_app
-from .forms import GameReviewForm, SignupForm
+from .forms import GameReviewForm, SignupForm, GameForm
 from .models import Game, GameGenre, Player, GameReview
 from django.views.generic import View
 from django.http import HttpResponseNotFound
@@ -21,10 +21,11 @@ from dal import autocomplete
 
 
 def index(request):
+    form = GameForm
     url = f'https://api.rawg.io/api/games?key={API}&metacritic=%60,100%22&page_size=40&dates=2015-01-01,2020-12-31&ordering=-metacritic'
     response = requests.request("GET", url)
     resp = response.json()
-    return render(request, 'index.html', {'game': resp})
+    return render(request, 'index.html', {'game': resp, 'form': form,})
 
 
 """Detailed view for a specific game via id"""
