@@ -116,8 +116,4 @@ def handler404(request, exception):
     return response
 
 
-def handler500(request):
-    data = {}
-    return render(request, '500.html', data)
-
 # Game Genre View

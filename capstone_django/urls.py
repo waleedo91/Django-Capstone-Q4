@@ -21,7 +21,7 @@ from django.conf.urls import handler404, handler500
 # Added the Player and Index urls
 from capstone_app.views import PlayerView, ReviewsView
 from django.conf import settings
-from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
@@ -33,7 +33,7 @@ urlpatterns = [
     path('player/<int:user_id>/', PlayerView.as_view(), name="playerview"),
     path('reviews/', ReviewsView.as_view(), name='review'),
     path('', include('capstone_app.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
-handler404 = 'capstone_app.views.handler404'
-handler500 = 'capstone_app.views.handler500'
+urlpatterns += staticfiles_urlpatterns()
+# handler404 = 'capstone_app.views.handler404'
