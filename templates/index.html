@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -18,8 +19,19 @@
       <h1>Hello World</h1>
       <form action='{% url "search_result" %}' method='post'>
         {% csrf_token %}
-        <input name='query' type='text' placeholder='Search for a game here..'>
-        <button type='submit' name='button'>Submit</button>
+        {{ form.as_p }}
+        <table style="display: none">
+          {{ view.formset.empty_form }}
+        </table>
+
+        <table>
+            {{ view.formset }}
+        </table>
+
+        <span id="add-form" class="button">Add form</span>
+        <input type="submit" />
+        <!-- <input name='query' type='text' placeholder='Search for a game here..'> -->
+        <!-- <button type='submit' name='button'>Submit</button> -->
     </form>
     </div>
     {% comment %} Canvas used for Hex background. {% endcomment %}

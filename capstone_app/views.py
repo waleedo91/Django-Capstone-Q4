@@ -1,8 +1,11 @@
-from django.http.response import Http404
+from django.urls import NoReverseMatch
 import requests
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from .models import Game, GameGenre, Player, GameReview
 from django.views.generic import View
+from django.http import HttpResponseNotFound
+from dal import autocomplete
+
 # from django.contrib.auth.decorators import login_required
 
 # from .models import Game, GameGenre, GameReview, Player
@@ -19,27 +22,51 @@ def gameview(request, game_id):
     return render(request, 'game.html', {'game': resp})
 
 
+page = 773
 def gameslist(request):
-    gameslist = []
+    global page
     exit_flag = False
-    while not exit_flag:
-        page = 1
-        url = f'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&page={ page }&page_size=40'
-        response = requests.request('GET', url)
-        resp = response.json()
-        try:
-            for item in resp['results']:
-                gameslist.append(item['name'])
-
-
-            page += 1
-            print(page)
-        except ConnectionRefusedError:
+    last_page = 13361
+    def createGames(url):
+        global page
+        # last_page = 2
+        if page > last_page:
             exit_flag = True
-            print('exiting')
+        # url = f'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&page={ page }&page_size=40'
+        response = requests.request('GET', f'{ url }&page={ page }')
+        resp = response.json()
+        print(f'{ url }&page={ page }')
+        for item in resp['results']:
+            if item['name'] not in Game.objects.all():
+                Game.objects.create(name=item['name'], game_id=item['id'])
+        
+        page = page + 1
+        print(page)
+        return page
 
-    print(len(gameslist))
+    while not exit_flag:
+        try:
+            url = f'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&page_size=40'
+            createGames(url)
+        except NoReverseMatch:
+            exit_flag = True
+            print('finished loading games')
+
     return render(request, 'index.html', {})
+
+
+class GameAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Filter out results depending on the visitor
+        if not self.request.user.is_authenticated:
+            return Game.objects.none()
+        
+        qs = Game.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+        
+        return qs
 
 
 def searchview(request):

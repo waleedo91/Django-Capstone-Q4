@@ -13,15 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from capstone_app.models import Game
 from django.contrib import admin
 from django.urls import path, include
 from capstone_app import views
 
 # from capstone_app.views import index
 # Added the Player and Index urls
-from capstone_app.views import PlayerView, ReviewsView
+from capstone_app.views import GameAutocomplete, PlayerView, ReviewsView, Game
+from dal import autocomplete
 
 urlpatterns = [
+    path(
+        '^game-autocomplete/$',
+        GameAutocomplete.as_view(),
+        name='game-autocomplete',
+    ),
     path('', views.homeview, name='home'),
     path('game/<int:game_id>/', views.gameview, name='gameview'),
     path('search/', views.searchview, name='search_result'),
