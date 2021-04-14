@@ -23,6 +23,33 @@ body {
   width: 100%;
 }
 
+/* ANIMATION */
+@keyframes flicker {
+  from {
+    text-shadow: 
+      0 0 5px #fafafa,
+      0 0 10px #fafafa,
+      0 0 20px #00ff22,
+      0 0 40px #00ff22;
+  }
+  to {
+    text-shadow: 
+      0 0 5px #2ff1409f,
+      0 0 10px #2ff1409f,
+      0 0 20px #00e0139f,
+      0 0 40px #00e0139f;
+  }
+}
+
+/* ATTACH ANIMATION */
+.brand {
+  animation: flicker 1s ease-in-out infinite alternate;
+}
+
+#navbarNav{
+  text-decoration: underline;
+}
+
 .scrolling-wrapper {
   overflow-x: scroll;
   overflow-y: hidden;
@@ -33,6 +60,6 @@ body {
   /* bottom: 50px; */
 }
 .scrolling-wrapper > .card {
-  
   display: inline-block;
 }
+
