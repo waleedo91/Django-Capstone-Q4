@@ -9,3 +9,7 @@ A website for hosting game reviews. Best known for its extensive lists of games 
   User profile -- View games you have played, and games you have reviewed.
   Submit new review (signup required)
   Search wikipedia for game information to review (dynamic from user)
+
+
+IMPORTANT!!!!
+For static files to be used when ready to deploy. You must type in terminal python manage.py collectstatic and then you will be able to set DEBUG=False.
