@@ -18,7 +18,7 @@ from django.urls import path, include
 from capstone_app import views
 from capstone_app.views import index
 # Added the Player and Index urls
-from capstone_app.views import PlayerView, ReviewsView
+from capstone_app.views import PlayerView, ReviewsView, index, gameview, SignUp, add_review
 
 urlpatterns = [
     path('game/<int:game_id>/', views.gameview, name='gameview'),
@@ -26,7 +26,7 @@ urlpatterns = [
     path('accounts/new/', views.SignUp.as_view(), name='signup'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('player/<int:user_id>/', PlayerView.as_view(), name="playerview"),
+    path('player/<int:user_id>/', views.PlayerView.as_view(), name="playerview"),
     path('reviews/', ReviewsView.as_view(), name='review'),
     path('', include('capstone_app.urls')),
 ]

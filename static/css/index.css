@@ -30,7 +30,9 @@ body {
   position: relative;
   top: 30rem;
   /* margin-top: 30px; */
+  /* bottom: 50px; */
 }
 .scrolling-wrapper > .card {
+  
   display: inline-block;
 }
