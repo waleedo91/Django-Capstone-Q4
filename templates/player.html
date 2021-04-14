@@ -28,9 +28,19 @@
   <div class="this-user">
     <h1>Gamer</h1>
     <h2>{{user}}</h2>
+    <ul>
+    {% for r in resp %}
+        <li>
+            <h3>Name: {{r.user}}</h3>
+        </li>
+        <h3>Game: {{r.game}}</h3>
+        <h3>Rating: {{r.rating_score}}</h3>
+        <h3>{{r.body}}</h3>
+    {% endfor %}
+    </ul>
   </div>
 
-    {% include 'card.html' %}
+    {% comment %} {% include 'card.html' %} {% endcomment %}
     {% comment %} Canvas used for background {% endcomment %}
     <canvas id="canvas">
     <script src="{% static '/js/index.js' %}"></script>

@@ -44,22 +44,27 @@ body {
 /* ATTACH ANIMATION */
 .brand {
   animation: flicker 1s ease-in-out infinite alternate;
+  font-size: large;
 }
 
 #navbarNav{
+  animation: flicker 1s ease-in-out infinite alternate;
   text-decoration: underline;
+  font-size: large;
 }
 
 .scrolling-wrapper {
+  color:rgba(247, 242, 235, 0.438);
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
   position: relative;
-  top: 30rem;
+  top: 350px;
   /* margin-top: 30px; */
   /* bottom: 50px; */
 }
 .scrolling-wrapper > .card {
+  color:rgba(247, 242, 235, 0.185);
   display: inline-block;
 }
 
