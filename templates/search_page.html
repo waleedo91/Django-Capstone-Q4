@@ -1,12 +1,21 @@
+{% block content %}
 <h1>search results</h1>
-<body>
-    <ul>
-        {% for item in results.results %}
-        <li>
-            <a href=http://127.0.0.1:8000/game/{{ item.id }}>{{item.name}}</a>
-        </li>
-        {% endfor %}
+<div class="scrolling-wrapper">
+    {% for game in results.results %}
+    <div class="card-transparent" style="width: 18rem">
+        <img
+            class="card-img-top"
+            src="{{ game.background_image }}"
+            alt="Card image cap"
+            style="height: 10rem"
+        />
+        <div class="card-body">
+            <h5 class="card-title"><a href="/game/{{game.id}}">{{ game.name }}</a></h5>
+            <p class="card-text">Released: {{ game.released}}</p>
+            <p class="card-text">Metacritic: {{ game.metacritic}}</p>
+            <p class="card-text">Rating: {{ game.rating }}</p>
+        </div>
+        </div>
+    {% endfor %}
+{% endblock %}
 
-        </li>
-</ul>
-</body>

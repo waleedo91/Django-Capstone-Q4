@@ -20,14 +20,9 @@ from capstone_app import views
 from capstone_app.views import index
 # Added the Player and Index urls
 from capstone_app.views import GameAutocomplete, PlayerView, ReviewsView, Game
-from dal import autocomplete
+
 
 urlpatterns = [
-    path(
-        '^game-autocomplete/$',
-        GameAutocomplete.as_view(),
-        name='game-autocomplete',
-    ),
     path('game/<int:game_id>/', views.gameview, name='gameview'),
     path('search/', views.searchview, name='search_result'),
     path('create_gameslist/', views.gameslist, name='gameslist'),

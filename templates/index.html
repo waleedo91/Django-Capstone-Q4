@@ -23,21 +23,11 @@
     </header>
     <div class='head'>
       <h1>Hello World</h1>
-      <br><br><br>
-      <!-- <form action='{% url "search_result" %}' method='post'> -->
-        <form method="post">
+      <br><br><br><br><br>
+      <form action='{% url "search_result" %}' method='post'>
         {% csrf_token %}
-        {{ form.as_p }}
-        <table style="display: none">
-          {{ view.formset.empty_form }}
-        </table>
-
-        <table>
-            {{ view.formset }}
-        </table>
-        <input type='submit' />
-        <!-- <input name='query' type='text' placeholder='Search for a game here..'> -->
-        <!-- <button type='submit' name='button'>Submit</button> -->
+        <input name='query' type='text' placeholder='Search for a game here..'>
+        <button type='submit' name='button'>Submit</button>
     </form>
     </div>
     {% comment %} Canvas used for Hex background. {% endcomment %}
