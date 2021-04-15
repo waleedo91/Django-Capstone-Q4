@@ -1,5 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="/">Game Review App</a>
+<div class="brand">
+<h3>
+  <a class="navbar-brand" href="/">Hype Games</a>
+</h3>
+</div>
   <button
     class="navbar-toggler"
     type="button"
@@ -14,18 +18,28 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/"
-          >Home <span class="sr-only">(current)</span></a
-        >
+        <a class="nav-link" href="/">
+          Home 
+          <span class="sr-only">(current)</span>
+        </a>
       </li>
       <li class="nav-item">
+<<<<<<< HEAD
         <a class="nav-link" href="/player/{{request.user.id}}">Profile</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/reviews">All reviews</a>
+=======
+        <a class="nav-link" href="player/{{request.user.id}}/">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="add_review/">Review</a>
+>>>>>>> darian
       </li>
     </ul>
+
     <span class="navbar-text">
+<<<<<<< HEAD
 
       {% if request.user.is_authenticated %}
         <ul class="navbar-nav mr-auto">
@@ -50,6 +64,19 @@
 
 
 
+=======
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/accounts/new/">Sign up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/accounts/login/">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/accounts/logout/">Logout</a>
+        </li>
+      </ul>
+>>>>>>> darian
     </span>
   </div>
 </nav>
