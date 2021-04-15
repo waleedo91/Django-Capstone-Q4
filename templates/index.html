@@ -17,6 +17,7 @@
       type="text/css"
       href="{% static 'css/index.css' %}"
     />
+    <link rel='stylesheet' type='text/css' href='{% static "css/card.css" %}'/>
   </head>
   <body>
     <header>
@@ -33,11 +34,16 @@
     </div>
     {% comment %} Canvas used for Hex background. {% endcomment %}
 
+  <div>
     {% include 'card.html' %}
+  </div>
     {% comment %} Canvas used for background {% endcomment %}
-    <canvas id="canvas"></canvas>
+  <div>
+    {% include 'footer.html' %}
+  </div>
+    <canvas id="canvas">
 
-    <script src="static/js/index.js"></script>
+    <script src="{% static 'js/index.js' %}"></script>
   </body>
   {% block footer %}
   <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>

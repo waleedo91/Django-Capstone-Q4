@@ -58,8 +58,30 @@
   /* margin-top: 30px; */
   /* bottom: 50px; */
 }
-.scrolling-wrapper > .card {
+.scrolling-wrapper > .card-transparent {
   color:rgba(247, 242, 235, 0.185);
   display: inline-block;
-  background-color: rgba(255, 255, 255, 0.9);
+  /* background-color: rgba(255, 255, 255, 0.9); */
+}
+
+
+.footer{
+  /* display: inline-block; */
+  position: absolute;
+  background-color: rgba(85, 83, 83, 0.171);
+  color: #fafafa;
+  z-index: 100;
+  width: 100%;
+  bottom: 0;
+}
+
+.link{
+  /* text-align: center; */
+  color: #fafafa;
+  /*
+  position: absolute;
+  right: 0;
+  */
+  /* margin-left: 50px; */
+  float: right;
 }

@@ -20,8 +20,11 @@ from capstone_app import views
 # Added the Player and Index urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+<<<<<<< HEAD
 from capstone_app.views import PlayerView, ReviewsView, index, gameview, add_review
 
+=======
+>>>>>>> b2b040d5a9e0d3b2523b65a8aeb808a2def8c5c7
 
 urlpatterns = [
     path('game/<int:game_id>/', views.gameview, name='gameview'),
@@ -33,6 +36,10 @@ urlpatterns = [
     path('logout/', views.logout_view),
     path('player/<int:user_id>/', views.PlayerView.as_view(), name="playerview"),
     path('reviews/', views.ReviewsView.as_view(), name='review'),
+<<<<<<< HEAD
+=======
+    path('aboutus/', views.aboutus, name='aboutus'),
+>>>>>>> b2b040d5a9e0d3b2523b65a8aeb808a2def8c5c7
     path('', include('capstone_app.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),
 ]
