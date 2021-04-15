@@ -1,20 +1,15 @@
-/* html,
-body {
-
-} */
-
 #canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  background: black;
-  z-index: -1;
-  position: absolute;
-  bottom: 0;
-}
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background: black;
+    z-index: -1;
+    position: absolute;
+    bottom: 0;
+  }
 
-/* Be sure to not add overflow to parent element for sticky to work*/
+  /* Be sure to not add overflow to parent element for sticky to work*/
 .navbar {
   display: inline-block;
   position: fixed !important;
@@ -28,7 +23,7 @@ body {
   overflow-y: hidden;
   white-space: nowrap;
   position: relative;
-  top: 43rem;
+  top: 615px;
   /* margin-top: 30px; */
 }
 
@@ -37,6 +32,8 @@ body {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-.card {
-  opacity: 0.9;
-}
+
+
+  /* .card {
+    opacity: 0.9;
+  } */

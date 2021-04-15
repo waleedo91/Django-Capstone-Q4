@@ -1,6 +1,7 @@
 import django
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms.widgets import PasswordInput
 from django.utils import timezone
 
 # Create your models here.
@@ -44,11 +45,11 @@ class Game(models.Model):
 
 
 class Player(models.Model):
-    user = models.CharField(max_length=20)
-    password = models.CharField(max_length=20)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=20, null=False, blank=False)
     favorite_games = models.CharField(max_length=100, null=True, blank=True)
     registration_date = models.DateField(default=django.utils.timezone.now)
+    id = models.AutoField(primary_key=True, editable=False)
 
 
     def __str__(self):

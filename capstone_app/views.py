@@ -1,25 +1,36 @@
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 import requests
+
 
 # API must be set in env and settings
 from capstone_django.settings import API
 
 # Imported from capstone_app
-from .forms import GameReviewForm, SignupForm
+from .forms import GameReviewForm, SignupForm, LoginForm
 from .models import Game, GameGenre, Player, GameReview
-from django.views.generic import View
+
 
 """Created for homepage to display popular games"""
+
+
 def index(request):
     url = f'https://api.rawg.io/api/games?key={API}&metacritic=%60,100%22&page_size=40&dates=2015-01-01,2020-12-31&ordering=-metacritic'
     response = requests.request("GET", url)
     resp = response.json()
-    return render(request, 'index.html', {'game': resp,})
+    player = User.objects.all()
+    return render(request, 'index.html', {
+        'game': resp,
+        'player': player,
+        })
 
 
-"""View created for a specific game via id"""
+"""Detailed view for a specific game via id"""
+
+
 def gameview(request, game_id):
     url = f'https://api.rawg.io/api/games/{ game_id }?key={API}'
     game = requests.request("GET", url)
@@ -27,29 +38,47 @@ def gameview(request, game_id):
     return render(request, 'game.html', {'game': resp})
 
 
-"""View created to display Search Results"""
-def searchview(request):
-    search_results = request.POST.get('query')
-    url = f'https://api.rawg.io/api/games?key={API}&page_size=40&search="{ search_results }"'
-    game = requests.request("GET", url)
-    resp = game.json()
-    return render(request, 'search_page.html', {'results': resp})
 
 
-"""View created to display User profile page"""
+
+""" ReviewsView should show all reviews """
+
+
+class ReviewsView(View):
+    def get(self, request):
+        reviews = GameReview.objects.all().order_by('-created_at')
+        html = 'Reviews.html'
+        return render(
+            request,
+            html,
+            {"reviews": reviews}
+        )
+        # user=request.user,
+        # game=request.game,
+        # rating_score=request.rating_score,
+        # body=request.body,
+
+
+'''View created to display User profile page'''
+
+
 class PlayerView(View):
     def get(self, request, user_id):
-        new_player = Player.objects.get(
-            id=user_id
-        )
+        user = User.objects.get(id=user_id)
+        player = Player.objects.filter(user=user)
         return render(
             request,
             'player.html',
-            {'new_player': new_player}
+            {
+                'user': user,
+                'player': player,
+            }
         )
 
 
-"""View created for a review on specific game"""
+"""View to create a review on specific game by User. Login required"""
+
+
 @login_required
 def add_review(request):
     if request.method == 'POST':
@@ -67,39 +96,63 @@ def add_review(request):
     return render(request, 'newreview.html', {'form': form})
 
 
-"""View created a new user"""
-class SignUp(View):
+def handler404(request, exception):
+    response = render(request, '404.html')
+    response.status = 404
+    return response
 
-    def get(self, request):
-        form = SignupForm
-        return render(request, 'registration/signup.html', {'form': form})
 
-    def post(self, request):
+"""Create a new profile for user"""
+
+def signup_view(request):
+    if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            new_user = Player.objects.create(
-                user=data['user'],
-                password=data['password'],
-                name=data['name'],
+            new_user = User.objects.create_user(
+                username=data['username'],
+                password=data['password']
             )
-            return render(request, 'index.html', {'user': new_user})
+            Player.objects.create(
+                name=data['name'],
+                user=new_user
+            )
+        return HttpResponseRedirect(reverse('home'))
 
-        form = SignupForm()
-        return render(request, 'registration/signup.html', {'form': form})
+    form = SignupForm()
+    return render(request, 'generic_form.html', {'form': form})
 
 
-"""View created to show all reviews """
-class ReviewsView(View):
+
+class LoginView(View):
     def get(self, request):
-        reviews = GameReview.objects.all().order_by('-created_at')
-        html = 'Reviews.html'
-        return render(
-            request,
-            html,
-            {"reviews": reviews}
-        )
-        # user=request.user,
-        # game=request.game,
-        # rating_score=request.rating_score,
-        # body=request.body,
+        form = LoginForm()
+        return render(request, 'generic_form.html', {'form': form})
+
+    def post(self, request):
+        if request.method == 'POST':
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                player = authenticate(
+                    request, username=data['username'], password=data['password'])
+                if player:
+                    login(request, player)
+                    return HttpResponseRedirect(request.GET.get('next', '/'))
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
+
+
+"""View created to display Search Results"""
+def searchview(request):
+    search_results = request.POST.get('query')
+    url = f'https://api.rawg.io/api/games?key={API}&page_size=40&search="{ search_results }"'
+    game = requests.request("GET", url)
+    resp = game.json()
+    return render(request, 'search_page.html', {'results': resp})
+
+
+# Game Genre View
