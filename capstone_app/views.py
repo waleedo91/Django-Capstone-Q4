@@ -109,22 +109,8 @@ def add_review(request):
     return render(request, 'newreview.html', {'form': form})
 
 
-"""This is for the profile page to filter 
-through the gamers review that they made ony"""
-# def gamer_profile(request, user_id):
-#     user = Player.objects.filter(
-#         id=user_id
-#     )
-#     review = GameReview.objects.filter(
-#         game_user=user
-#     )
-#     game = GameReview.objects.filter(
-#         game_user=user
-#     )
-#     return render(request,
-#          'player.html',
-#          {
-#             "user": user,
-#             "review": review,
-#             "game": game
-#             })
+"""This is a simple about us page"""
+def aboutus(request):
+    html = "aboutus.html"
+    return render(request, html)
+
