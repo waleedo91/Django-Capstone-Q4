@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, reverse
 import requests
 
 
@@ -46,12 +46,12 @@ class SignUp(View):
         form = SignupForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            new_user = Player.objects.create(
+            Player.objects.create(
                 user=data['user'],
                 password=data['password'],
                 name=data['name'],
             )
-            return render(request, 'index.html', {'user': new_user})
+            return HttpResponseRedirect(reverse('home'))
 
         form = SignupForm()
         return render(request, 'registration/signup.html', {'form': form})
