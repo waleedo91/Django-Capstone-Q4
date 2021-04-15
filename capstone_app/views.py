@@ -1,7 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 import requests
+
 
 # API must be set in env and settings
 from capstone_django.settings import API
@@ -17,7 +20,14 @@ def index(request):
     url = f'https://api.rawg.io/api/games?key={API}&metacritic=%60,100%22&page_size=40&dates=2015-01-01,2020-12-31&ordering=-metacritic'
     response = requests.request("GET", url)
     resp = response.json()
-    return render(request, 'index.html', {'game': resp, 'form': form,})
+    player = User.objects.all()
+    return render(request, 'index.html', {
+        'game': resp,
+        'player': player,
+        })
+
+
+"""Detailed view for a specific game via id"""
 
 
 """View created for a specific game via id"""
@@ -87,8 +97,6 @@ class SignUp(View):
             )
             return render(request, 'index.html', {'user': new_user})
 
-        form = SignupForm()
-        return render(request, 'registration/signup.html', {'form': form})
 
 
 """View created to show all reviews """
@@ -161,11 +169,77 @@ class ReviewsView(View):
     #     return item.short_name
 
 
+class PlayerView(View):
+    def get(self, request, user_id):
+        user = User.objects.get(id=user_id)
+        player = Player.objects.filter(user=user)
+        return render(
+            request,
+            'player.html',
+            {
+                'user': user,
+                'player': player,
+            }
+        )
 
 
 
 
 
+
+
+def handler404(request, exception):
+    response = render(request, '404.html')
+    response.status = 404
+    return response
+
+
+"""Create a new profile for user"""
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            new_user = User.objects.create_user(
+                username=data['username'],
+                password=data['password']
+            )
+            Player.objects.create(
+                name=data['name'],
+                user=new_user
+            )
+        return HttpResponseRedirect(reverse('home'))
+
+    form = SignupForm()
+    return render(request, 'generic_form.html', {'form': form})
+
+
+
+class LoginView(View):
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'generic_form.html', {'form': form})
+
+    def post(self, request):
+        if request.method == 'POST':
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                player = authenticate(
+                    request, username=data['username'], password=data['password'])
+                if player:
+                    login(request, player)
+                    return HttpResponseRedirect(request.GET.get('next', '/'))
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
 
 
 # Game Genre View
+"""This is a simple about us page"""
+def aboutus(request):
+    html = "aboutus.html"
+    return render(request, html)

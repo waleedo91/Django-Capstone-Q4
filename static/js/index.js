@@ -5,8 +5,8 @@ var settings = {
   lineLength: 40,
   speed: 2,
   lifeTime: 500,
-  maxParticles: 80,
-  radius: 1,
+  maxParticles: 100,
+  radius: 3,
   avoidVisited: false,
   clearTrails: function() {ctx.clearRect(0, 0, width, height); visited = [];},
   restart: function() {ctx.clearRect(0, 0, width, height); particles = []; visited = [];}
@@ -142,15 +142,15 @@ function init() {
   //start drawing
   updateAndDraw();
 
-  //add controls
-  var gui = new dat.GUI();
-  //gui.add(settings, 'speed', 0.5, settings.lineLength).step(1);
-  gui.add(settings, 'lifeTime', 50, 3000);
-  gui.add(settings, 'maxParticles', 1, 200);
-  gui.add(settings, 'radius', 0.5, 6);
-  gui.add(settings, 'avoidVisited');
-  gui.add(settings, 'clearTrails');
-  gui.add(settings, 'restart');
+  // //add controls
+  // var gui = new data.GUI();
+  // //gui.add(settings, 'speed', 0.5, settings.lineLength).step(1);
+  // gui.add(settings, 'lifeTime', 50, 3000);
+  // gui.add(settings, 'maxParticles', 1, 200);
+  // gui.add(settings, 'radius', 0.5, 6);
+  // gui.add(settings, 'avoidVisited');
+  // gui.add(settings, 'clearTrails');
+  // gui.add(settings, 'restart');
 }
 
 init();

@@ -17,20 +17,26 @@ from capstone_app.models import Game
 from django.contrib import admin
 from django.urls import path, include
 from capstone_app import views
-from capstone_app.views import index
 # Added the Player and Index urls
-from capstone_app.views import GameAutocomplete, PlayerView, ReviewsView, Game
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+from capstone_app.views import PlayerView, ReviewsView, index, gameview, add_review
 
 
 urlpatterns = [
     path('game/<int:game_id>/', views.gameview, name='gameview'),
-    path('search/', views.searchview, name='search_result'),
-    path('create_gameslist/', views.gameslist, name='gameslist'),
+    path('search/', views.searchview, name='search'),
     path('add_review/', views.add_review, name='add_review'),
-    path('accounts/new/', views.SignUp.as_view(), name='signup'),
+    path('signup/', views.signup_view, name='signup'),
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('player/<int:user_id>/', PlayerView.as_view(), name="playerview"),
-    path('reviews/', ReviewsView.as_view(), name='review'),
+    path('login/', views.LoginView.as_view()),
+    path('logout/', views.logout_view),
+    path('player/<int:user_id>/', views.PlayerView.as_view(), name="playerview"),
+    path('reviews/', views.ReviewsView.as_view(), name='review'),
+    path('aboutus/', views.aboutus, name='aboutus'),
     path('', include('capstone_app.urls')),
+    # path('accounts/', include('django.contrib.auth.urls')),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+# handler404 = 'capstone_app.views.handler404'
