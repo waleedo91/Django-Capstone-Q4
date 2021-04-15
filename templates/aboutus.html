@@ -12,23 +12,27 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{% static '/css/aboutus.css' %}"
+      href="{% static 'css/aboutus.css' %}"
     />
   </head>
   <header>
     {% include 'navbar.html' %}
   </header>
   <body>
-  <div class="card" style="width: 18rem;">
+  <div class="card" style="width: 50rem;">
   <div class="card-body">
-    <h2>About Us</h2>
-    <h4>What is up, and I can not stress this enough, "My Gamers"!</h4>
-    <h5>Do you like games, do you like talking about games?</h5>
-    <h5>Well here at Hype Games you can fined any game of your liking 
-    weather it be any genre and if you fined the game good or bad, you can review any game you want
-    to your hearts content</h5>
+    <h1 class="about" style="text-align: center;">About Us</h1>
+    <h3>What is up, and I can not stress this enough, "My Gamers"!</h3>
+    <br/>
+    <h3>Do you like games, do you like talking about games?</h3>
+    <br/>
+    <h3>Well here at Hype Games you can find any game of your liking 
+    whether it be any genre and if you find the game good or bad, you can review any game you want
+    to your hearts content! : )</h3>
   </div>
   </div>
+ 
+
  <canvas id="canvas">
 
     <script src="{% static '/js/index.js' %}"></script>
