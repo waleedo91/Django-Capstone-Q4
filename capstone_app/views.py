@@ -7,17 +7,16 @@ import requests
 from capstone_django.settings import API
 
 # Imported from capstone_app
-from .forms import GameReviewForm, SignupForm, GameForm
+from .forms import GameReviewForm, SignupForm
 from .models import Game, GameGenre, Player, GameReview
 from django.views.generic import View
 
 """Created for homepage to display popular games"""
 def index(request):
-    form = GameForm
     url = f'https://api.rawg.io/api/games?key={API}&metacritic=%60,100%22&page_size=40&dates=2015-01-01,2020-12-31&ordering=-metacritic'
     response = requests.request("GET", url)
     resp = response.json()
-    return render(request, 'index.html', {'game': resp, 'form': form,})
+    return render(request, 'index.html', {'game': resp,})
 
 
 """View created for a specific game via id"""
@@ -34,7 +33,6 @@ def searchview(request):
     url = f'https://api.rawg.io/api/games?key={API}&page_size=40&search="{ search_results }"'
     game = requests.request("GET", url)
     resp = game.json()
-    print(resp)
     return render(request, 'search_page.html', {'results': resp})
 
 
@@ -105,67 +103,3 @@ class ReviewsView(View):
         # game=request.game,
         # rating_score=request.rating_score,
         # body=request.body,
-
-
-# page = 773
-# def gameslist(request):
-#     global page
-#     exit_flag = False
-#     last_page = 13361
-#     def createGames(url):
-#         global page
-#         # last_page = 2
-#         if page > last_page:
-#             exit_flag = True
-#         # url = f'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&page={ page }&page_size=40'
-#         response = requests.request('GET', f'{ url }&page={ page }')
-#         resp = response.json()
-#         print(f'{ url }&page={ page }')
-#         for item in resp['results']:
-#             if item['name'] not in Game.objects.all():
-#                 Game.objects.create(name=item['name'], game_id=item['id'])
-        
-#         page = page + 1
-#         print(page)
-#         return page
-
-#     while not exit_flag:
-#         try:
-#             url = f'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&page_size=40'
-#             createGames(url)
-#         except NoReverseMatch:
-#             exit_flag = True
-#             print('finished loading games')
-
-#     return render(request, 'index.html', {})
-
-
-# class GameAutocomplete(autocomplete.Select2QuerySetView):
-#     def get_queryset(self):
-#         # # Filter out results depending on the visitor
-#         # if not self.request.user.is_authenticated:
-#         #     return Game.objects.none()
-        
-#         qs = Game.objects.all()
-
-#         if self.q:
-#             qs = qs.filter(name__istartswith=self.q)
-        
-        
-#         return qs
-    # def get_result_label(self, item):
-    #     return item.full_name
-        
-
-    # def get_selected_result_label(self, item):
-    #     return item.short_name
-
-
-
-
-
-
-
-
-
-# Game Genre View

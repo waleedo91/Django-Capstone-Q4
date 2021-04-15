@@ -19,13 +19,12 @@ from django.urls import path, include
 from capstone_app import views
 from capstone_app.views import index
 # Added the Player and Index urls
-from capstone_app.views import GameAutocomplete, PlayerView, ReviewsView, Game
+from capstone_app.views import PlayerView, ReviewsView
 
 
 urlpatterns = [
     path('game/<int:game_id>/', views.gameview, name='gameview'),
-    path('search/', views.searchview, name='search_result'),
-    path('create_gameslist/', views.gameslist, name='gameslist'),
+    path('search/', views.searchview, name='search'),
     path('add_review/', views.add_review, name='add_review'),
     path('accounts/new/', views.SignUp.as_view(), name='signup'),
     path('admin/', admin.site.urls),
