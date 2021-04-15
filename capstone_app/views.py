@@ -147,3 +147,7 @@ def logout_view(request):
 
 
 # Game Genre View
+"""This is a simple about us page"""
+def aboutus(request):
+    html = "aboutus.html"
+    return render(request, html)

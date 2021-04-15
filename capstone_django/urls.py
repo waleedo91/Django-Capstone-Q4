@@ -29,6 +29,7 @@ urlpatterns = [
     path('logout/', views.logout_view),
     path('player/<int:user_id>/', views.PlayerView.as_view(), name="playerview"),
     path('reviews/', views.ReviewsView.as_view(), name='review'),
+    path('aboutus/', views.aboutus, name='aboutus'),
     path('', include('capstone_app.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),
 ]

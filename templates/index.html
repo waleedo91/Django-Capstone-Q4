@@ -23,9 +23,14 @@
   </header>
   <body>
 
+  <div>
     {% include 'card.html' %}
+  </div>
     {% comment %} Canvas used for background {% endcomment %}
-    <canvas id="canvas"></canvas>
+  <div>
+    {% include 'footer.html' %}
+  </div>
+    <canvas id="canvas">
 
     <script src="{% static 'js/index.js' %}"></script>
   </body>
