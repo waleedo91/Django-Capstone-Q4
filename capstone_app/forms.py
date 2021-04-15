@@ -11,16 +11,20 @@ from .models import GameGenre, Game, Player, GameReview
 
 
 class GameReviewForm(forms.ModelForm):
-    
+
     class Meta:
         model = GameReview
         fields = ('game', 'rating_score', 'body')
 
 
 class SignupForm(forms.Form):
-    user = forms.CharField(max_length=100)
-    password = forms.CharField(widget=PasswordInput)
+    username = forms.CharField(max_length=100)
     name = forms.CharField(max_length=100)
+    password = forms.CharField(widget=PasswordInput)
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput)
 
 
 
