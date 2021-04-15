@@ -73,16 +73,23 @@ def gameslist(request):
 
 class GameAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        # Filter out results depending on the visitor
-        if not self.request.user.is_authenticated:
-            return Game.objects.none()
+        # # Filter out results depending on the visitor
+        # if not self.request.user.is_authenticated:
+        #     return Game.objects.none()
         
         qs = Game.objects.all()
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)
         
+        
         return qs
+    # def get_result_label(self, item):
+    #     return item.full_name
+        
+
+    # def get_selected_result_label(self, item):
+    #     return item.short_name
 
 
 def searchview(request):
