@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 import requests
 
 
@@ -8,7 +10,7 @@ import requests
 from capstone_django.settings import API
 
 # Imported from capstone_app
-from .forms import GameReviewForm, SignupForm
+from .forms import GameReviewForm, SignupForm, LoginForm
 from .models import Game, GameGenre, Player, GameReview
 
 
@@ -19,7 +21,11 @@ def index(request):
     url = f'https://api.rawg.io/api/games?key={API}&metacritic=%60,100%22&page_size=40&dates=2015-01-01,2020-12-31&ordering=-metacritic'
     response = requests.request("GET", url)
     resp = response.json()
-    return render(request, 'index.html', {'game': resp})
+    player = User.objects.all()
+    return render(request, 'index.html', {
+        'game': resp,
+        'player': player,
+        })
 
 
 """Detailed view for a specific game via id"""
@@ -32,29 +38,7 @@ def gameview(request, game_id):
     return render(request, 'game.html', {'game': resp})
 
 
-"""Create a new profile for user"""
 
-
-class SignUp(View):
-
-    def get(self, request):
-        form = SignupForm
-        return render(request, 'registration/signup.html', {'form': form})
-
-    def post(self, request):
-        # if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            new_user = Player.objects.create(
-                user=data['user'],
-                password=data['password'],
-                name=data['name'],
-            )
-            return render(request, 'index.html', {'user': new_user})
-
-        form = SignupForm()
-        return render(request, 'registration/signup.html', {'form': form})
 
 
 """ ReviewsView should show all reviews """
@@ -80,13 +64,15 @@ class ReviewsView(View):
 
 class PlayerView(View):
     def get(self, request, user_id):
-        new_player = Player.objects.get(
-            id=user_id
-        )
+        user = User.objects.get(id=user_id)
+        player = Player.objects.filter(user=user)
         return render(
             request,
             'player.html',
-            {'new_player': new_player}
+            {
+                'user': user,
+                'player': player,
+            }
         )
 
 
@@ -114,6 +100,50 @@ def handler404(request, exception):
     response = render(request, '404.html')
     response.status = 404
     return response
+
+
+"""Create a new profile for user"""
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            new_user = User.objects.create_user(
+                username=data['username'],
+                password=data['password']
+            )
+            Player.objects.create(
+                name=data['name'],
+                user=new_user
+            )
+        return HttpResponseRedirect(reverse('home'))
+
+    form = SignupForm()
+    return render(request, 'generic_form.html', {'form': form})
+
+
+
+class LoginView(View):
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'generic_form.html', {'form': form})
+
+    def post(self, request):
+        if request.method == 'POST':
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                player = authenticate(
+                    request, username=data['username'], password=data['password'])
+                if player:
+                    login(request, player)
+                    return HttpResponseRedirect(request.GET.get('next', '/'))
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
 
 
 # Game Genre View

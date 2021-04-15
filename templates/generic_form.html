@@ -1,0 +1,15 @@
+{% if request.path != '/signup/' %}
+    <h1>Login</h1>
+    <form action='' method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value='Log in'>
+    </form>
+{% else %}
+    <h1>Sign up</h1>
+    <form action='' method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value='Sign up'>
+    </form>
+{% endif %}
