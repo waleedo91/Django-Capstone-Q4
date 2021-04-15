@@ -18,22 +18,48 @@
   width: 100%;
 }
 
+/* ANIMATION */
+@keyframes flicker {
+  from {
+    text-shadow:
+      0 0 5px #fafafa,
+      0 0 10px #fafafa,
+      0 0 20px #00ff22,
+      0 0 40px #00ff22;
+  }
+  to {
+    text-shadow:
+      0 0 5px #2ff1409f,
+      0 0 10px #2ff1409f,
+      0 0 20px #00e0139f,
+      0 0 40px #00e0139f;
+  }
+}
+
+/* ATTACH ANIMATION */
+.brand {
+  animation: flicker 1s ease-in-out infinite alternate;
+  font-size: large;
+}
+
+#navbarNav{
+  animation: flicker 1s ease-in-out infinite alternate;
+  text-decoration: underline;
+  font-size: large;
+}
+
 .scrolling-wrapper {
+  color:rgba(247, 242, 235, 0.438);
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
   position: relative;
   top: 615px;
   /* margin-top: 30px; */
+  /* bottom: 50px; */
 }
-
-.scrolling-wrapper > .card-transparent {
+.scrolling-wrapper > .card {
+  color:rgba(247, 242, 235, 0.185);
   display: inline-block;
   background-color: rgba(255, 255, 255, 0.9);
 }
-
-
-
-  /* .card {
-    opacity: 0.9;
-  } */
