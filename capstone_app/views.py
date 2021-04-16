@@ -18,7 +18,7 @@ from .models import Game, GameGenre, Player, GameReview
 
 
 def index(request):
-    url = f'https://api.rawg.io/api/games?key={API}&metacritic=%60,100%22&page_size=40&dates=2015-01-01,2020-12-31&ordering=-metacritic'
+    url = f'https://api.rawg.io/api/games?key={API}'
     response = requests.request("GET", url)
     resp = response.json()
     player = User.objects.all()
@@ -117,6 +117,7 @@ def signup_view(request):
                 name=data['name'],
                 user=new_user
             )
+        login(request, new_user)
         return HttpResponseRedirect(reverse('home'))
 
     form = SignupForm()
