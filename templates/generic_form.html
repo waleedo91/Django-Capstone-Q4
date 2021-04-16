@@ -1,21 +1,29 @@
-{% include 'base.html' %}
-{% include 'navbar.html' %}
-{% if request.path != '/signup/' %}
-    <div class='form'>
-        <h1>Login</h1>
-        <form action='' method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value='Log in'>
-        </form>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% include 'navbar.html' %}
+    <br/>
+    {% if request.path != '/signup/' %}
+    <div class='login-container'>
+        <h1 class='user-header'>Login</h1>
+            <div class='loginform'>
+                <form action='' method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input class='button-login' type="submit" value='Log in'>
+                </form>
+            </div>
     </div>
-{% else %}
-    <div class='form'>
-        <h1>Sign up</h1>
-        <form action='' method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value='Sign up'>
-        </form>
-    </div>
-{% endif %}
+    {% else %}
+        < class='form'>
+            <h1 class='user-form'>Sign up</h1>
+            <form action='' method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value='Sign up'>
+            </form>
+        </>
+    {% endif %}
+    <canvas id='canvas'></canvas>
+    {% include 'footer.html' %}
+{% endblock %}

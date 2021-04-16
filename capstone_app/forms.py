@@ -5,6 +5,7 @@ from django.forms.widgets import PasswordInput
 
 from .models import GameGenre, Game, Player, GameReview
 
+
 '''Going to give the game variable a test to make sure we are able to choose from listed games and choose from that list.
 
 -Waleed'''
@@ -25,16 +26,6 @@ class SignupForm(forms.Form):
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
-
-
-
-class UserChangeForm(UserChangeForm):
-    class Meta:
-        model = Player
-        fields = (
-            'name',
-            'favorite_games'
-        )
 
 
 class AddGameForm(forms.ModelForm):

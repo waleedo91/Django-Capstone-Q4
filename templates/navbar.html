@@ -15,7 +15,7 @@
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse brand" id="navbarNav">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="/">
@@ -30,6 +30,14 @@
         <a class="nav-link" href="/reviews">All reviews</a>
       </li>
     </ul>
+
+    <div class='head'>
+      <form action='{% url "search_result" %}' method='post'>
+        {% csrf_token %}
+        <input  class='search-form' name='query' type='text' placeholder='Search for a game here..'>
+        <button type='submit' name='button'>Submit</button>
+      </form>
+    </div>
 
     <span class="navbar-text">
 
@@ -49,13 +57,6 @@
           </li>
         </ul>
       {% endif %}
-
-
-
-
-
-
-
     </span>
   </div>
 </nav>

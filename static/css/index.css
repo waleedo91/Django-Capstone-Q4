@@ -1,3 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* BACKGROUND FOR MAJORITY OF WEBSITE */
 #canvas {
     display: block;
     width: 100%;
@@ -5,9 +15,20 @@
     margin: 0 auto;
     background: black;
     z-index: -1;
-    position: absolute;
+    position: fixed;
     bottom: 0;
   }
+
+/* CSS FOR NAVBAR */
+.head {
+  margin: 0 275px;
+  width: 50%;
+}
+
+.search-form{
+  width: 90%;
+}
+
 
   /* Be sure to not add overflow to parent element for sticky to work*/
 .navbar {
@@ -43,10 +64,10 @@
 }
 
 #navbarNav{
-  animation: flicker 1s ease-in-out infinite alternate;
   text-decoration: underline;
-  font-size: large;
 }
+
+/* CSS FOR CARD ON HOME PAGE */
 
 .scrolling-wrapper {
   color:rgba(247, 242, 235, 0.438);
@@ -64,20 +85,81 @@
   /* background-color: rgba(255, 255, 255, 0.9); */
 }
 
+/* CSS FOR GENERIC FORMS AUTH PAGE */
+
+
+.button-login{
+    background-color: #00e0139f;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-login:hover {
+  opacity: 1
+}
+
+
+.user-header {
+  margin-top: 15%;
+  color: rgb(86, 190, 108);
+}
+
 .form{
   display: inline-block;
   position: relative;
   top: 120px;
   margin-left: 20px;
+  color: white;
 }
 
-.footer{
-  /* display: inline-block; */
-  position: absolute;
-  background-color: rgba(85, 83, 83, 0.171);
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.loginform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    position: relative;
+    width: 500px;
+    height: 275px;
+    padding: 3px;
+    z-index: 2;
+    background: rgba(253, 253, 253, 0.644);
+    box-shadow: rgba(197, 190, 190, 0.829) 5px 5px 20px 25px;
+}
+
+
+
+/* CSS FOR FOOTER */
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+}
+
+.foot-container{
+  display: inline-block;
+  background-color: rgba(85, 83, 83, 0.8);
   color: #fafafa;
-  z-index: 100;
   width: 100%;
+  position: fixed;
   bottom: 0;
 }
 

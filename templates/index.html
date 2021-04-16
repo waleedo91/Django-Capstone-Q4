@@ -1,18 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-  <header>
-      {% include 'navbar.html' %}
-  </header>
   <body>
-
-  <div>
+    {% include 'navbar.html' %}
     {% include 'card.html' %}
-  </div>
-    {% comment %} Canvas used for background {% endcomment %}
-  <div>
+
+    <canvas id='canvas'></canvas>
     {% include 'footer.html' %}
-  </div>
-    <canvas id="canvas">
   </body>
 {% endblock %}

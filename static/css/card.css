@@ -27,7 +27,7 @@
     border: 2px solid;
     border-radius: 40px
 }
-.gg-copyright::after {
+/* .gg-copyright::after {
     color: #00e0139f;
     content: "";
     position: absolute;
@@ -37,4 +37,4 @@
     top: 3px;
     left: 3px;
     transform: none
-}
+} */

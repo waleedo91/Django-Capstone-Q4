@@ -13,16 +13,16 @@ body {
     position: absolute;
     bottom: 0;
   }
-  
+
   /* Be sure to not add overflow to parent element for sticky to work*/
-  .navbar {
+  /* .navbar {
     display: inline-block;
     position: fixed !important;
     background-color: #00e0139f;
     z-index: 100;
     width: 100%;
-  }
-  
+  } */
+
   .scrolling-wrapper {
     overflow-x: scroll;
     overflow-y: hidden;
@@ -34,7 +34,7 @@ body {
   .scrolling-wrapper > .card {
     display: inline-block;
   }
-  
+
   .this-user {
     position: relative;
     top: 120px;
