@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-  <div class="game">
-  <!-- get information for game from api (request.rating) -->
+    <div class="game">
+    <!-- get information for game from api (request.rating) -->
     {% if game.rating != 0 and game.metacritic != None %}
         <h2 id='game_title'>{{ game.name }}: rate score {{ game.rating }}/{{ game.metacritic }}</h2>
     {% elif game.rating == 0 and game.metacritic != None %}
@@ -28,6 +28,7 @@
             {{ game.description_raw }}
         </div>
     </div>
-  </div>
+    </div>
+    <h4>Add a Review</h4>
   <canvas id='canvas'></canvas>
 {% endblock %}

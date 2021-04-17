@@ -38,11 +38,12 @@ class GameGenre(models.Model):
 class Game(models.Model):
     name = models.CharField(max_length=50)
     game_id = models.IntegerField(default=None)
-    released = models.DateField(auto_now_add=True)
+    released = models.CharField(max_length=100)
     background_image = models.ImageField(upload_to='static/images')
     rating = models.DecimalField(max_digits=3, decimal_places=2)
-    metacritic = models.IntegerField(default=None)
-    esrb_rating = models.CharField(max_length=100)
+    metacritic = models.IntegerField(default=None, null=True)
+    esrb_rating = models.CharField(max_length=100, null=True, blank=True)
+    slug = models.CharField(max_length=100, null=False)
 
     def __str__(self):
         return self.name
@@ -62,8 +63,7 @@ class Player(models.Model):
 
 class GameReview(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    # game = models.ForeignKey(Game, on_delete=models.CASCADE, null=True)
-    game = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
     rating_score = models.IntegerField(null=True, blank=True)
     body = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)

@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.http import response
+from django.http.request import RAISE_ERROR
 from django.views.generic import View
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.urls import NoReverseMatch
@@ -90,21 +91,27 @@ class PlayerView(View):
 
 
 """View created for a review on specific game"""
-@login_required
-def add_review(request):
-    if request.method == 'POST':
-        form = GameReviewForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            GameReview.objects.create(
-                game=data['game'],
-                rating_score=data['rating_score'],
-                body=data['body']
-            )
-            return HttpResponseRedirect('/')
+# @login_required
+# def add_review(request):
+#     context = {}
+#     if request.method == 'POST':
+#         form = GameReviewForm(request.POST)
+#         if form.is_valid():
+#             data = form.cleaned_data
+#             GameReview.objects.create(
+#                 title=data['title'],
+#                 body=data['body'],
+#                 rating_score=data['rating_score']
+#             )
+#             return redirect('/')
+#             # context.update({'message': 'Submitted Successfully!'})
 
-    form = GameReviewForm()
-    return render(request, 'newreview.html', {'form': form})
+#     form = GameReviewForm()
+#     context.update({'form': form})
+#     return render(request,
+#                   'generic_form.html',
+#                   context
+#                   )
 
 
 """View created to show all reviews """
@@ -124,40 +131,30 @@ class ReviewsView(View):
         # game=request.game,
         # rating_score=request.rating_score,
         # body=request.body,
+# '''function to create a review for a game'''
+
+# @login_required
+# def add_review(request):
+#     context = {}
+#     if request.method == 'POST':
+#         form = GameReviewForm(request.POST)
+#         if form.is_valid():
+#             data = form.cleaned_data
+#             GameReview.objects.create(
+#                 title=data['title'],
+#                 body=data['body'],
+#                 rating_score=data['rating_score']
+#             )
+#             return render(request, 'game.html', context)
+#     form = GameReviewForm()
+#     context.update({'form': form})
+#     return render(request, 'game.html', context)
+
+
 
 '''Creates the game and floods into the database'''
 
-page = 773
-@login_required
-def gameslist(request):
-    global page
-    exit_flag = False
-    last_page = 13361
-    def createGames(url):
-        global page
-        if page > last_page:
-            exit_flag = True
-        url = f'https://api.rawg.io/api/games?key={API}&page={ page }&page_size=40'
-        response = requests.request('GET', f'{ url }&page={ page }')
-        resp = response.json()
-        print(f'{ url }&page={ page }')
-        for item in resp['results']:
-            if item['name'] not in Game.objects.all():
-                Game.objects.create(name=item['name'], game_id=item['id'])
 
-        page = page + 1
-        print(page)
-        return page
-
-    while not exit_flag:
-        try:
-            url = f'https://api.rawg.io/api/games?key={API}&page_size=40'
-            createGames(url)
-        except NoReverseMatch:
-            exit_flag = True
-            print('finished loading games')
-
-    return render(request, 'index.html', {})
 
 
 class PlayerView(View):
@@ -232,4 +229,32 @@ def aboutus(request):
     return render(request, html)
 
 
-# Game Genre View
+
+def get_games(request):
+    all_games = {}
+    page = 1
+    # for p in range(25):
+    #     page += 1
+    url = f'https://api.rawg.io/api/games?key={API}&genres=role-playing-games-rpg&page_size=40'
+    response = requests.get(url)
+    data = response.json()
+    games = data['results']
+    for i in games:
+        game_data = Game(
+            name = i['name'],
+            esrb_rating = i['esrb_rating'],
+            rating = i['rating'],
+            metacritic = i['metacritic'],
+            slug = i['slug'],
+            background_image = i['background_image'],
+            game_id=i['id'],
+            released=i['released']
+        )
+        if not Game.objects.filter(name=i['name']).exists():
+            print(game_data)
+            game_data.save()
+            all_games = Game.objects.all()
+
+
+    return render (request, 'games_list.html', { "all_games":
+    all_games} )

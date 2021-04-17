@@ -15,7 +15,7 @@ class GameReviewForm(forms.ModelForm):
 
     class Meta:
         model = GameReview
-        fields = ('game', 'rating_score', 'body')
+        fields = ('title', 'rating_score', 'body')
 
 
 class SignupForm(forms.Form):
@@ -28,9 +28,9 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
-class AddGameForm(forms.ModelForm):
-    class Meta:
-        model = Game
-        fields = (
-            'name',
-        )
+# class AddGameForm(forms.ModelForm):
+#     class Meta:
+#         model = Game
+#         fields = (
+#             'game',
+#         )
