@@ -1,34 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
 {% load static %}
-<!DOCTYPE html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/game.css' %}">
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link
       rel="stylesheet"
       type="text/css"
       href="{% static '/css/game.css' %}"
     />
-  </head>
-  {% comment %} {% comment %} <header>
-    {% include 'navbar.html' %}
-  </header> {% endcomment %} 
-
 <body>
   <!-- get information for game from api (request.rating) -->
   <div id='game_title'>
     {% if game.rating != 0 and game.metacritic != None %}
-    <h2>{{ game.name }}: rate score {{ game.rating }}/{{ game.metacritic }}</h2>
+      {% if game.rating >= 4 and game.metacritic >= 90 %}
+      <h1 class="display-4">{{ game.name }}</h1>
+      <p class="text-success">rated {{ game.rating }}/{{ game.metacritic }}</p>
+      {% elif game.rating >= 3 and game.metacritic >= 75 %}
+      <h1 class="display-4">{{ game.name }}</h1>
+      <p class="text-warning">rated {{ game.rating }}/{{ game.metacritic }}</p>
+      {% elif game.rating > 3 and game.metacritic > 75 %}
+      <h1 class="display-4">{{ game.name }}</h1>
+      <p class="text-danger">rated {{ game.rating }}/{{ game.metacritic }}</p>
+      {% endif %}
     {% elif game.rating == 0 and game.metacritic != None %}
-    <h2>{{ game.name }}: rate score {{ game.metacritic }}</h2>
+    <h1 class="display-4">{{ game.name }}</h1>
+    <p class="text-warning">rated {{ game.metacritic }} / 100</p>
     {% elif game.rating != 0 and game.metacritic == None %}
-    <h2>{{ game.name }}: rate score {{ game.rating }}</h2>
+    <h1 class="display-4">{{ game.name }}</h1>:
+    <p class="text-warning"> rated {{ game.rating }}</p>
     {% elif game.rating == 0 and game.metacritic == None %}
-    <h2>{{ game.name }}: rate score (NOT RATED)</h2>
+    <h1 class="display-4">{{ game.name }}</h1><p class="text-danger"> (NOT RATED)</p>
     {% endif %}
   </div>
   <div id="container">
@@ -52,7 +51,6 @@
           </p>
           Game Description: 
           <div class="game_description">
-            <br>
             {{ game.description_raw }}
           </div>
         </div>
@@ -61,4 +59,6 @@
         <!-- uncomment this line for background, disabled for development -->
         <!-- <script src="{% static '/js/index.js' %}"></script> -->
 </body>
+{% endblock %}
+
 
