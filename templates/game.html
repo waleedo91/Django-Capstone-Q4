@@ -1,6 +1,5 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,35 +18,47 @@
     {% include 'navbar.html' %}
   </header> {% endcomment %} 
 
-  <body>
-<div class="game">
-<!-- get information for game from api (request.rating) -->
-{% if game.rating != 0 and game.metacritic != None %}
-    <h2 id='game_title'>{{ game.name }}: rate score {{ game.rating }}/{{ game.metacritic }}</h2>
-{% elif game.rating == 0 and game.metacritic != None %}
-    <h2 id='game_title'>{{ game.name }}: rate score {{ game.metacritic }}</h2>
-{% elif game.rating != 0 and game.metacritic == None %}
-    <h2 id='game_title'>{{ game.name }}: rate score {{ game.rating }}</h2>
-{% elif game.rating == 0 and game.metacritic == None %}
-    <h2 id='game_title'>{{ game.name }}: rate score (NOT RATED)</h2>
-{% endif %}
-<img src={{ game.background_image }} style="width:50%; height:50%;" id="game_image">
-<div class="game_tags">
-    release date: {{ game.released }} 
-    <br>
-    genre: 
-    {% for item in game.genres %}
-    {{ item.name }},
-    {% endfor %}
-    <br>
-     <a href={{ game.website }}>{{game.name}}'s website</a>
-    <div id="game_description">
-        {{ game.description_raw }}
-    </div>
-</div>
-<canvas id="canvas">
-    <script src="{% static '/js/index.js' %}"></script>
-</div>
+<body>
+  <!-- get information for game from api (request.rating) -->
+  <div id='game_title'>
+    {% if game.rating != 0 and game.metacritic != None %}
+    <h2>{{ game.name }}: rate score {{ game.rating }}/{{ game.metacritic }}</h2>
+    {% elif game.rating == 0 and game.metacritic != None %}
+    <h2>{{ game.name }}: rate score {{ game.metacritic }}</h2>
+    {% elif game.rating != 0 and game.metacritic == None %}
+    <h2>{{ game.name }}: rate score {{ game.rating }}</h2>
+    {% elif game.rating == 0 and game.metacritic == None %}
+    <h2>{{ game.name }}: rate score (NOT RATED)</h2>
+    {% endif %}
+  </div>
+  <div id="container">
+    <div class="image_container">
+      <img id="game_image" src={{ game.background_image }}>
+      </div>
+      <div class="game_tags">
+        <p>
+          release date: {{ game.released }} 
+        </p>
+          <br>
+          <p>
+            genre: 
+            {% for item in game.genres %}
+            {{ item.name }},
+            {% endfor %}
+          </p>
+          <br>
+          <p>
+              <a href={{ game.website }}>{{game.name}}'s website</a>
+          </p>
+          Game Description: 
+          <div class="game_description">
+            <br>
+            {{ game.description_raw }}
+          </div>
+        </div>
+      </div>
+      <canvas id="canvas">
+        <!-- uncomment this line for background, disabled for development -->
+        <!-- <script src="{% static '/js/index.js' %}"></script> -->
 </body>
-</html>
 
