@@ -55,6 +55,16 @@
           </div>
         </div>
       </div>
+        <div id="reviews_container">
+          Reddit Comments, Concerns, and Reviews:
+          <!-- {{ reviews }} -->
+          {% for review in reviews.results %}
+          <title>{{ review.username }} - by {{ review.username }}</title>
+          {{ review.created }}
+          <p class="text-info">{{ review.text }}</p>
+          {% endfor %}
+
+        </div>
       <canvas id="canvas">
         <!-- uncomment this line for background, disabled for development -->
         <!-- <script src="{% static '/js/index.js' %}"></script> -->
