@@ -17,12 +17,13 @@
     <div class="game_tags">
         release date: {{ game.released }}
         <br>
+        <br/>
         genre:
         {% for item in game.genres %}
         {{ item.name }}
         {% endfor %}
-        <br>
-        <a href={{ game.website }}>{{game.name}}'s website</a>
+        <br/>
+        <br/>
         <div id="game_description">
             {{ game.description_raw }}
         </div>

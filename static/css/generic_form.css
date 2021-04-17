@@ -1,0 +1,46 @@
+.button-login{
+    background-color: #00e0139f;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-login:hover {
+  opacity: 1
+}
+
+.user-header {
+  margin-top: 15%;
+  color: rgb(86, 190, 108);
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    position: relative;
+    width: 500px;
+    height: 300px;
+    padding: 3px;
+    z-index: 2;
+    background: rgba(253, 253, 253, 0.644);
+    box-shadow: rgba(197, 190, 190, 0.829) 5px 5px 20px 25px;
+}

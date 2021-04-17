@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-  <body>
-    {% include 'navbar.html' %}
-    {% include 'card.html' %}
+  {% include 'navbar.html' %}
+  <canvas id='canvas'></canvas>
+    <section id='sec1'>
+        <h1 class="lasvegas">
+          Hyp<span>E</span><br/> Ga<span class="delay">me</span>S
+        </h1>
+      <div>
+        <a href="#games">
+          <div class="scroll-down"></div>
+        </a>
+      </div>
+    </section>
 
-    <canvas id='canvas'></canvas>
-    {% include 'footer.html' %}
-  </body>
+
+      <div id='games'>
+        {% include 'card.html' %}
+      </div>
+
+
+    {% comment %} {% include 'footer.html' %} {% endcomment %}
 {% endblock %}

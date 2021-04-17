@@ -38,6 +38,11 @@ class GameGenre(models.Model):
 class Game(models.Model):
     name = models.CharField(max_length=50)
     game_id = models.IntegerField(default=None)
+    released = models.DateField(auto_now_add=True)
+    background_image = models.ImageField(upload_to='static/images')
+    rating = models.DecimalField(max_digits=3, decimal_places=2)
+    metacritic = models.IntegerField(default=None)
+    esrb_rating = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name

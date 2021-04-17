@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import response
 from django.views.generic import View
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login, logout, authenticate
@@ -17,22 +18,47 @@ from django.views.generic import View
 
 """Created for homepage to display popular games"""
 
+genres = [
+        'action',
+        'indie',
+        'role-playing-games-rpg',
+        'massively-multiplayer',
+    ]
+
+def gamegenres(genre):
+    for g in genres:
+        if g == genre:
+            url = f'https://api.rawg.io/api/games?&genres={ g }&page_size=40&key={API}'
+            # print(url)
+            response = requests.request('GET', url)
+            resp = response.json()
+            # print(response.json())
+    return resp
 
 def index(request):
-    url = f'https://api.rawg.io/api/games?key={API}&metacritic="95,100"&page_size=40&ordering=-metacritic'
+    url = f'https://api.rawg.io/api/games?key={API}&metacritic="95,100"&page_size=40&ordering=-metacritic&dates=2000,2021'
     response = requests.request("GET", url)
     resp = response.json()
     player = User.objects.all()
+    action = gamegenres('action')
+    multiplayer = gamegenres('massively-multiplayer')
+    rpg = gamegenres('role-playing-games-rpg')
+    indie = gamegenres('indie')
     return render(request, 'index.html', {
-        'game': resp,
+        'games': resp,
         'player': player,
+        'action': action,
+        'multiplayer': multiplayer,
+        'rpg': rpg,
+        'indie': indie
         })
+
+
 
 
 """Detailed view for a specific game via id"""
 
 
-"""View created for a specific game via id"""
 def gameview(request, game_id):
     url = f'https://api.rawg.io/api/games/{ game_id }?key={API}'
     game = requests.request("GET", url)
@@ -82,6 +108,9 @@ def add_review(request):
 
 
 """View created to show all reviews """
+
+# https://api.rawg.io/api/games/{game_id}/reddit?key={API}
+
 class ReviewsView(View):
     def get(self, request):
         reviews = GameReview.objects.all().order_by('-created_at')
@@ -108,7 +137,7 @@ def gameslist(request):
         global page
         if page > last_page:
             exit_flag = True
-        url = f'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&page={ page }&page_size=40'
+        url = f'https://api.rawg.io/api/games?key={API}&page={ page }&page_size=40'
         response = requests.request('GET', f'{ url }&page={ page }')
         resp = response.json()
         print(f'{ url }&page={ page }')
@@ -122,7 +151,7 @@ def gameslist(request):
 
     while not exit_flag:
         try:
-            url = f'https://api.rawg.io/api/games?key=1d0a743d255d48418ee551a3eb563813&page_size=40'
+            url = f'https://api.rawg.io/api/games?key={API}&page_size=40'
             createGames(url)
         except NoReverseMatch:
             exit_flag = True

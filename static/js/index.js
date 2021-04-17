@@ -4,7 +4,7 @@ var settings = {
   //these first two aren't currently editable from the control box
   lineLength: 40,
   speed: 2,
-  lifeTime: 500,
+  lifeTime: 1000,
   maxParticles: 100,
   radius: 3,
   avoidVisited: false,
@@ -131,7 +131,6 @@ function updateAndDraw() {
   }
   requestAnimationFrame(updateAndDraw);
 }
-
 function init() {
   //set the canvas width/height
   onResize();
@@ -142,15 +141,15 @@ function init() {
   //start drawing
   updateAndDraw();
 
-  // //add controls
-  // var gui = new data.GUI();
-  // //gui.add(settings, 'speed', 0.5, settings.lineLength).step(1);
-  // gui.add(settings, 'lifeTime', 50, 3000);
-  // gui.add(settings, 'maxParticles', 1, 200);
-  // gui.add(settings, 'radius', 0.5, 6);
-  // gui.add(settings, 'avoidVisited');
-  // gui.add(settings, 'clearTrails');
-  // gui.add(settings, 'restart');
+  //add controls
+  var gui = new dat.GUI();
+  //gui.add(settings, 'speed', 0.5, settings.lineLength).step(1);
+  gui.add(settings, 'lifeTime', 50, 3000);
+  gui.add(settings, 'maxParticles', 1, 200);
+  gui.add(settings, 'radius', 0.5, 6);
+  gui.add(settings, 'avoidVisited');
+  gui.add(settings, 'clearTrails');
+  gui.add(settings, 'restart');
 }
 
 init();
