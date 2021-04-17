@@ -35,10 +35,13 @@ def gameview(request, game_id):
     url = f'https://api.rawg.io/api/games/{ game_id }?key={API}'
     game = requests.request("GET", url)
     resp = game.json()
-    reviews_url = f'https://api.rawg.io/api/games/3498/reddit?key={API}'
+    reviews_url = f'https://api.rawg.io/api/games/{ game_id }/reddit?key={API}'
     reviews_request = requests.request("GET", reviews_url)
     reviews = reviews_request.json()
-    return render(request, "game.html", {"game": resp, 'reviews': reviews,})
+    screenshots_url = f'https://api.rawg.io/api/games/{ game_id }/screenshots?key={API}'
+    screenshots_request = requests.request("GET", screenshots_url)
+    screenshots = screenshots_request.json()
+    return render(request, "game.html", {"game": resp, 'reviews': reviews, 'screenshots': screenshots})
 
 
 

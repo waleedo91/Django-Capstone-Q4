@@ -33,7 +33,7 @@
   <div id="container">
     <div class="image_container">
       <img id="game_image" src={{ game.background_image }}>
-      </div>
+    </div>
       <div class="game_tags">
         <p>
           release date: {{ game.released }} 
@@ -60,12 +60,14 @@
           {% for review in reviews.results %}
           {% if review.text != "" %}
           <div id="review">
-            <title>{{ review.username }} - by {{ review.username }}</title>
-            {{ review.created }}
-            <p class="text-info">{{ review.text }}</p>
+            <p class="text-info">{{ review.name }} - posted by {{ review.username }} on {{ review.created }}</p>
+              <p class="review-text">{{ review.text }}</p>
           </div>
           {% endif %}
           {% endfor %}
+          {% if reviews.count == 0 %}
+            <h2 id='reviews_null'>This game has no reviews yet :(</h2>
+          {% endif %}
         </div>
       <canvas id="canvas">
         <!-- uncomment this line for background, disabled for development -->
