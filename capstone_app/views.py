@@ -38,7 +38,6 @@ def gameview(request, game_id):
     reviews_url = f'https://api.rawg.io/api/games/3498/reddit?key={API}'
     reviews_request = requests.request("GET", reviews_url)
     reviews = reviews_request.json()
-    print(reviews)
     return render(request, "game.html", {"game": resp, 'reviews': reviews,})
 
 

@@ -56,14 +56,16 @@
         </div>
       </div>
         <div id="reviews_container">
-          Reddit Comments, Concerns, and Reviews:
-          <!-- {{ reviews }} -->
+          <h5 id='reviews_intro'>Reddit Comments, Concerns, and Reviews</h5>
           {% for review in reviews.results %}
-          <title>{{ review.username }} - by {{ review.username }}</title>
-          {{ review.created }}
-          <p class="text-info">{{ review.text }}</p>
+          {% if review.text != "" %}
+          <div id="review">
+            <title>{{ review.username }} - by {{ review.username }}</title>
+            {{ review.created }}
+            <p class="text-info">{{ review.text }}</p>
+          </div>
+          {% endif %}
           {% endfor %}
-
         </div>
       <canvas id="canvas">
         <!-- uncomment this line for background, disabled for development -->
