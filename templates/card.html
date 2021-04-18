@@ -3,115 +3,41 @@
 
 <!-- Cards displaying on the index.html page -->
 {% block content %}
-
-<h2 class='genre-title'>Top 40 Games!</h2>
-<div class="scrolling-wrapper">
-  {% for game in games.results %}
-  <div class="card-transparent" style="width: 18rem">
-    <img
-      class="card-img-top"
-      src="{{ game.background_image }}"
-      alt="Card image cap"
-      style="height: 10rem"
-    />
-    <div class="card-body">
-
-      <h5 class="card-title text-truncate" ><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
-      <p class="card-text">Released: {{ game.released}}</p>
-      <p class="card-text">Metacritic: {{ game.metacritic}}</p>
-      <p class="card-text">Rating: {{ game.rating }}</p>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-
-<br/>
-<br/>
-
-<h2 class='genre-title'>Multiplayer Games</h2>
-<div class="scrolling-wrapper">
-  {% for game in multiplayer.results %}
-  <div class="card-transparent" style="width: 18rem">
-    <img
-      class="card-img-top"
-      src="{{ game.background_image }}"
-      alt="Card image cap"
-      style="height: 10rem"
-
-    />
-    <div class="card-body">
-
-      <h5 class="card-title text-truncate"><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
-      <p class="card-text">Released: {{ game.released}}</p>
-      <p class="card-text">Metacritic: {{ game.metacritic}}</p>
-      <p class="card-text">Rating: {{ game.rating }}</p>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-
-<br/>
-<br/>
-
-<h2 class='genre-title'>Action Games</h2>
-<div class="scrolling-wrapper">
-  {% for game in action.results %}
-  <div class="card-transparent" style="width: 18rem">
-    <img
-      class="card-img-top"
-      src="{{ game.background_image }}"
-      alt="Card image cap"
-      style="height: 10rem"
-    />
-    <div class="card-body">
-
-      <h5 class="card-title text-truncate"><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
-      <p class="card-text">Released: {{ game.released}}</p>
-      <p class="card-text">Metacritic: {{ game.metacritic}}</p>
-      <p class="card-text">Rating: {{ game.rating }}</p>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-
-<br/>
-<br/>
-
-<h2 class='genre-title'>Indie Games</h2>
-<div class="scrolling-wrapper">
-  {% for game in indie.results %}
-  <div class="card-transparent" style="width: 18rem">
-    <img
-      class="card-img-top"
-      src="{{ game.background_image }}"
-      alt="Card image cap"
-      style="height: 10rem"
-    />
-    <div class="card-body">
-
-      <h5 class="card-title text-truncate"><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
-      <p class="card-text">Released: {{ game.released}}</p>
-      <p class="card-text">Metacritic: {{ game.metacritic}}</p>
-      <p class="card-text">Rating: {{ game.rating }}</p>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-
-<br/>
-<br/>
-
-
-  <h2 class='genre-title'>RPG Games</h2>
+<div class='card-container'>
+  <h2 class='genre-title'>Top 40 Games!</h2>
   <div class="scrolling-wrapper">
-    {% for game in rpg.results %}
+    {% for game in games.results %}
     <div class="card-transparent" style="width: 18rem">
       <img
         class="card-img-top"
         src="{{ game.background_image }}"
         alt="Card image cap"
         style="height: 10rem"
-        onerror="this.onerror=null;this.src='http:example.com/existent-image.jpg';"
+      />
+      <div class="card-body">
+
+        <h5 class="card-title text-truncate" ><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
+        <p class="card-text">Released: {{ game.released}}</p>
+        <p class="card-text">Metacritic: {{ game.metacritic}}</p>
+        <p class="card-text">Rating: {{ game.rating }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <br/>
+  <br/>
+
+  <h2 class='genre-title'>Multiplayer Games</h2>
+  <div class="scrolling-wrapper">
+    {% for game in multiplayer.results %}
+    <div class="card-transparent" style="width: 18rem">
+      <img
+        class="card-img-top"
+        src="{{ game.background_image }}"
+        alt="Card image cap"
+        style="height: 10rem"
+
       />
       <div class="card-body">
 
@@ -123,4 +49,79 @@
     </div>
     {% endfor %}
   </div>
+
+  <br/>
+  <br/>
+
+  <h2 class='genre-title'>Action Games</h2>
+  <div class="scrolling-wrapper">
+    {% for game in action.results %}
+    <div class="card-transparent" style="width: 18rem">
+      <img
+        class="card-img-top"
+        src="{{ game.background_image }}"
+        alt="Card image cap"
+        style="height: 10rem"
+      />
+      <div class="card-body">
+
+        <h5 class="card-title text-truncate"><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
+        <p class="card-text">Released: {{ game.released}}</p>
+        <p class="card-text">Metacritic: {{ game.metacritic}}</p>
+        <p class="card-text">Rating: {{ game.rating }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <br/>
+  <br/>
+
+  <h2 class='genre-title'>Indie Games</h2>
+  <div class="scrolling-wrapper">
+    {% for game in indie.results %}
+    <div class="card-transparent" style="width: 18rem">
+      <img
+        class="card-img-top"
+        src="{{ game.background_image }}"
+        alt="Card image cap"
+        style="height: 10rem"
+      />
+      <div class="card-body">
+
+        <h5 class="card-title text-truncate"><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
+        <p class="card-text">Released: {{ game.released}}</p>
+        <p class="card-text">Metacritic: {{ game.metacritic}}</p>
+        <p class="card-text">Rating: {{ game.rating }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <br/>
+  <br/>
+
+
+    <h2 class='genre-title'>RPG Games</h2>
+    <div class="scrolling-wrapper">
+      {% for game in rpg.results %}
+      <div class="card-transparent" style="width: 18rem">
+        <img
+          class="card-img-top"
+          src="{{ game.background_image }}"
+          alt="Card image cap"
+          style="height: 10rem"
+          onerror="this.onerror=null;this.src='http:example.com/existent-image.jpg';"
+        />
+        <div class="card-body">
+
+          <h5 class="card-title text-truncate"><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
+          <p class="card-text">Released: {{ game.released}}</p>
+          <p class="card-text">Metacritic: {{ game.metacritic}}</p>
+          <p class="card-text">Rating: {{ game.rating }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+</div>
 {% endblock %}

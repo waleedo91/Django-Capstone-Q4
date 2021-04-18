@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Player, GameReview, GameGenre, Game
+from .models import Player, GameReview, Game
 
 # class gameAdmin(admin.ModelAdmin):
 #     list_display = ('game_id', 'game')
@@ -7,5 +7,4 @@ from .models import Player, GameReview, GameGenre, Game
 # Register your models here.
 admin.site.register(Player)
 admin.site.register(GameReview)
-admin.site.register(GameGenre)
 admin.site.register(Game)

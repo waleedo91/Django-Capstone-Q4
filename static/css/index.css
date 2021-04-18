@@ -26,68 +26,12 @@ body {
     bottom: 0;
   }
 
-/* CSS FOR NAVBAR */
-
-.head {
-  margin: 0 275px;
-  width: 50%;
-}
-
-.search-form{
-  width: 90%;
-}
-
-.nav-head{
-  font-family: 'Ceviche One';
-  font-size: 50px;
-  margin: -20px;
-  margin-left: 5px;
-  padding: 0;
-}
-
-  /* Be sure to not add overflow to parent element for sticky to work*/
-.navbar {
-  display: inline-block;
-  position: fixed !important;
-  background-color: #00e0139f;
-  z-index: 100;
-  width: 100%;
-}
-
-.nav-link{
-  font-family: 'Permanent Marker';
-  color: black;
-  margin-left: 10px;
-  margin-top: 15px;
-  padding: 0;
-}
-
-/* ANIMATION */
-@keyframes flicker {
-  from {
-    text-shadow:
-      0 0 5px #fafafa,
-      0 0 10px #fafafa,
-      0 0 20px #00ff22,
-      0 0 40px #00ff22;
-  }
-  to {
-    text-shadow:
-      0 0 5px #2ff1409f,
-      0 0 10px #2ff1409f,
-      0 0 20px #00e0139f,
-      0 0 40px #00e0139f;
-  }
-}
-
-/* ATTACH ANIMATION */
-.brand {
-  animation: flicker 1s ease-in-out infinite alternate;
-  font-size: large;
-}
-
-
 /* SCROLL BAR CSS */
+.block {
+  /* display: hidden; */
+  visibility: hidden;
+  font-size: 40px;
+}
 
 ::-webkit-scrollbar{
 	width: 10px;
@@ -125,30 +69,6 @@ hr.rounded {
   border-top: 8px solid white;
   z-index: 100;
 }
-
-/* CSS FOR FOOTER */
-.footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 30px;
-}
-
-.foot-container{
-  display: inline-block;
-  background-color: rgba(85, 83, 83, 0.8);
-  color: #fafafa;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-}
-
-.link{
-  color: #fafafa;
-  float: right;
-}
-
-
 
 /* CSS for title on main page */
 

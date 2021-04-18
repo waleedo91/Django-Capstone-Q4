@@ -29,6 +29,11 @@
         </div>
     </div>
     </div>
-    <h4>Add a Review</h4>
+    <a href='/add_review/{{game.game_id}}/'>Add a Review</a>
+    {% for r in review %}
+    <h1 class=game-review>title:{{ r.title }}</h1>
+    {% endfor %}
+
+
   <canvas id='canvas'></canvas>
 {% endblock %}

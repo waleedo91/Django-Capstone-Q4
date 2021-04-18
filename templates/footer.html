@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block footer %}
-  <footer class='foot-container'>
+
+  <div class='foot-container'>
+    <p>&copy;Copyright 2021, Hype Games Inc. All rights Reserved</p>
+    <a class='link' style='color: black;' href='/aboutus/'>About Us!</a>
+  </div>
+
+
+
+
+
+  {% comment %} <footer class='foot-container'>
     <div class="col-md-6 mt-md-0 mt-3 footer">
       <h5> <small>&copy; Copyright 2021, Hype Games Inc. All rights Reserved</small> </h5>
       <h5>
         <a class="link" href="/aboutus/">About Us</a>
       </h5>
     </div>
-  </footer>
+  </footer> {% endcomment %}
 {% endblock %}

@@ -1,0 +1,20 @@
+.foot-container {
+    position: relative;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+}
+
+.link {
+    color: #fafafa;
+    float: right;
+}
+
+/* Used to keep footer at bottom without converging to cards */
+.block {
+    visibility: hidden;
+    font-size: 40px;
+}
