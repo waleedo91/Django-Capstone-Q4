@@ -15,7 +15,7 @@ class GameReviewForm(forms.ModelForm):
 
     class Meta:
         model = GameReview
-        fields = ('title', 'rating_score', 'body')
+        fields = ('review', 'rating_score', 'description')
 
 
 class SignupForm(forms.Form):

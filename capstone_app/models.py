@@ -1,6 +1,7 @@
 import django
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.deletion import CASCADE
 from django.utils import timezone
 
 # Create your models here.
@@ -22,11 +23,11 @@ class Game(models.Model):
 
 
 class Player(models.Model):
-    # Create a platform choice for user. 
+    # Create a platform choice for user.
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=20, null=False, blank=False)
     about = models.TextField(null=True)
-    favorite_games = models.CharField(max_length=100, null=True, blank=True)
+    favorite_games = models.ManyToManyField(Game)
     registration_date = models.DateField(default=django.utils.timezone.now)
     id = models.AutoField(primary_key=True, editable=False)
 
@@ -38,9 +39,9 @@ class Player(models.Model):
 class GameReview(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     game = models.ForeignKey(Game, on_delete=models.SET_NULL, null=True)
-    title = models.CharField(max_length=100)
+    review = models.CharField(max_length=100)
     rating_score = models.DecimalField(max_digits=3, decimal_places=2, null=True)
-    body = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

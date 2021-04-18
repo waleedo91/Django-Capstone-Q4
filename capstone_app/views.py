@@ -101,6 +101,7 @@ class PlayerView(View):
         )
 
 
+
 """View created to show all reviews """
 
 # https://api.rawg.io/api/games/{game_id}/reddit?key={API}
@@ -125,8 +126,8 @@ def add_review(request, game_id):
             form = GameReviewForm(request.POST or None)
             if form.is_valid():
                 data = form.save(commit=False)
-                data.title = request.POST["title"]
-                data.body = request.POST['body']
+                data.review = request.POST["review"]
+                data.description = request.POST['description']
                 data.rating_score=request.POST['rating_score']
                 data.user = request.user
                 data.game = game
