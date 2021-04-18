@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<body>
-    <header>
-        {% include 'navbar.html' %}
-    </header>
+  {% include 'navbar.html' %}
+  <canvas id='canvas'></canvas>
+    <section id='sec1'>
+        <h1 class="lasvegas">
+          Hyp<span>E</span><br/> Ga<span class="delay">me</span>S
+        </h1>
+      <div>
+        <a href="#games">
+          <div class="scroll-down"></div>
+        </a>
+      </div>
+    </section>
 
-  <div>
-    {% include 'card.html' %}
-  </div>
-    {% comment %} Canvas used for background {% endcomment %}
-  <div>
-    {% include 'footer.html' %}
-  </div>
-    <canvas id="canvas">
-  </body>
+      <div id='games'>
+        {% include 'card.html' %}
+      </div>
+      <p class='block'>Hey Darian to keep your foot down,</p>
+      <p class='block'>We had to use these p tags like idiots :))</p>
+      {% include 'footer.html' %}
 {% endblock %}

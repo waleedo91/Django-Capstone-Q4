@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-{% block content %}
 {% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
     <link
       rel="stylesheet"
       type="text/css"
@@ -34,44 +35,49 @@
     <div class="image_container">
       <img id="game_image" src={{ game.background_image }}>
     </div>
-      <div class="game_tags">
-        <p>
-          release date: {{ game.released }} 
-        </p>
-          <br>
-          <p>
-            genre: 
-            {% for item in game.genres %}
-            {{ item.name }},
-            {% endfor %}
-          </p>
-          <br>
-          <p>
-              <a href={{ game.website }}>{{game.name}}'s website</a>
-          </p>
-          Game Description: 
-          <div class="game_description">
-            {{ game.description_raw }}
-          </div>
-        </div>
+    <div class="game_tags">
+      <p>
+        release date: {{ game.released }} 
+      </p>
+      <br>
+      <p>
+        genre: 
+        {% for item in game.genres %}
+        {{ item.name }},
+        {% endfor %}
+      </p>
+      <br>
+      <p>
+          <a href={{ game.website }}>{{game.name}}'s website</a>
+      </p>
+      Game Description: 
+      <div class="game_description">
+        {{ game.description_raw }}
       </div>
-        <div id="reviews_container">
-          <h5 id='reviews_intro'>Reddit Comments, Concerns, and Reviews</h5>
-          {% for review in reviews.results %}
-          {% if review.text != "" %}
-          <div id="review">
-            <p class="text-info">{{ review.name }} - posted by {{ review.username }} on {{ review.created }}</p>
-              <p class="review-text">{{ review.text }}</p>
-          </div>
-          {% endif %}
-          {% endfor %}
-          {% if reviews.count == 0 %}
-            <h2 id='reviews_null'>This game has no reviews yet :(</h2>
-          {% endif %}
-        </div>
-      <canvas id="canvas">
-        <!-- uncomment this line for background, disabled for development -->
-        <!-- <script src="{% static '/js/index.js' %}"></script> -->
+      <a href='/add_review/{{game.game_id}}/'>Add a Review</a>
+    </div>
+  </div>
+  <div id="reviews_container">
+    <h5 id='reviews_intro'>Reddit Comments, Concerns, and Reviews</h5>
+    {% for r in review %}
+    <div id="review">
+      <p class="text-info">{{ r.title }} - posted by {{ r.user }} </p>
+      <p class="review-text">{{ r.body }}</p>
+    </div>
+    {% endfor %}
+    {% for review in reddit_reviews.results %}
+    {% if review.text != "" %}
+    <div id="review">
+      <p class="text-info">{{ review.name }} - posted by {{ review.username }} on {{ review.created }}</p>
+        <p class="review-text">{{ review.text }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% if reviews.count == 0 %}
+      <h2 id='reviews_null'>This game has no reviews yet :(</h2>
+    {% endif %}
+  </div>
+<canvas id="canvas">
 </body>
 {% endblock %}
 

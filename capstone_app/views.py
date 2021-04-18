@@ -1,8 +1,13 @@
+from os import name
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.http import response
+from django.http.request import RAISE_ERROR
 from django.views.generic import View
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from django.urls import NoReverseMatch
 import requests
 
 
@@ -11,41 +16,96 @@ from capstone_django.settings import API
 
 # Imported from capstone_app
 from .forms import GameReviewForm, SignupForm, LoginForm
-from .models import Game, GameGenre, Player, GameReview
-
+from .models import Game, Player, GameReview
+from django.views.generic import View
 
 """Created for homepage to display popular games"""
 
+genres = [
+        'action',
+        'indie',
+        'role-playing-games-rpg',
+        'massively-multiplayer',
+    ]
+
+def gamegenres(genre):
+    for g in genres:
+        if g == genre:
+            url = f'https://api.rawg.io/api/games?&genres={ g }&page_size=40&key={API}'
+            # print(url)
+            response = requests.request('GET', url)
+            resp = response.json()
+            # print(response.json())
+    return resp
 
 def index(request):
-    url = f'https://api.rawg.io/api/games?key={API}'
+    url = f'https://api.rawg.io/api/games?key={API}&metacritic="95,100"&page_size=40&ordering=-metacritic&dates=2000,2021'
     response = requests.request("GET", url)
     resp = response.json()
     player = User.objects.all()
+    action = gamegenres('action')
+    multiplayer = gamegenres('massively-multiplayer')
+    rpg = gamegenres('role-playing-games-rpg')
+    indie = gamegenres('indie')
     return render(request, 'index.html', {
-        'game': resp,
+        'games': resp,
         'player': player,
+        'action': action,
+        'multiplayer': multiplayer,
+        'rpg': rpg,
+        'indie': indie
         })
 
 
-"""Detailed view for a specific game via id"""
+def genre_view(request):
+    url = f'https://api.rawg.io/api/games?key={API}'
 
+
+"""Detailed view for a specific game via id"""
+from operator import itemgetter
 
 def gameview(request, game_id):
-    url = f'https://api.rawg.io/api/games/{ game_id }?key={API}'
+    # url = f'https://api.rawg.io/api/games/{ game_id }?key={API}'
+    # game = requests.request("GET", url)
+    # resp = game.json()
+    game = Game.objects.get(game_id=game_id)
+    review = GameReview.objects.filter(game_id=game.id)
+    reddit_reviews_url = f'https://api.rawg.io/api/games/{ game_id }/reddit?key={API}'
+    reddit_reviews_request = requests.request("GET", reddit_reviews_url)
+    reddit_reviews = reddit_reviews_request.json()
+    return render(request, 'game.html', {
+        # 'game': resp,
+        'game':game,
+        'review': review,
+        'reddit_reviews': reddit_reviews
+        })
+
+
+"""View created to display Search Results"""
+def searchview(request):
+    search_results = request.POST.get('query')
+    url = f'https://api.rawg.io/api/games?key={API}&page_size=40&search="{ search_results }"'
     game = requests.request("GET", url)
     resp = game.json()
-    reviews_url = f'https://api.rawg.io/api/games/{ game_id }/reddit?key={API}'
-    reviews_request = requests.request("GET", reviews_url)
-    reviews = reviews_request.json()
-    return render(request, "game.html", {"game": resp, 'reviews': reviews,})
+    return render(request, 'search_page.html', {'results': resp})
 
 
+"""View created to display User profile page"""
+class PlayerView(View):
+    def get(self, request, user_id):
+        new_player = Player.objects.get(
+            id=user_id
+        )
+        return render(
+            request,
+            'player.html',
+            {'new_player': new_player}
+        )
 
 
+"""View created to show all reviews """
 
-""" ReviewsView should show all reviews """
-
+# https://api.rawg.io/api/games/{game_id}/reddit?key={API}
 
 class ReviewsView(View):
     def get(self, request):
@@ -56,13 +116,36 @@ class ReviewsView(View):
             html,
             {"reviews": reviews}
         )
-        # user=request.user,
-        # game=request.game,
-        # rating_score=request.rating_score,
-        # body=request.body,
 
 
-'''View created to display User profile page'''
+# '''function to create a review for a game'''
+
+def add_review(request, game_id):
+    if request.user.is_authenticated:
+        game = Game.objects.get(game_id=game_id)
+        if request.method == "POST":
+            form = GameReviewForm(request.POST or None)
+            if form.is_valid():
+                data = form.save(commit=False)
+                data.title = request.POST["title"]
+                data.body = request.POST['body']
+                data.rating_score=request.POST['rating_score']
+                data.user = request.user
+                data.game = game
+                data.save()
+                return redirect(f"/game/{game_id}/")
+        else:
+            print(game)
+            form = GameReviewForm()
+        return render(request, 'newreview.html', {'form': form})
+    else:
+        return redirect('login')
+
+
+
+'''Creates the game and floods into the database'''
+
+
 
 
 class PlayerView(View):
@@ -78,25 +161,6 @@ class PlayerView(View):
             }
         )
 
-
-"""View to create a review on specific game by User. Login required"""
-
-
-@login_required
-def add_review(request):
-    if request.method == 'POST':
-        form = GameReviewForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            GameReview.objects.create(
-                game=data['game'],
-                rating_score=data['rating_score'],
-                body=data['body']
-            )
-            return HttpResponseRedirect('/')
-
-    form = GameReviewForm()
-    return render(request, 'newreview.html', {'form': form})
 
 
 def handler404(request, exception):
@@ -150,8 +214,49 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('home'))
 
 
-# Game Genre View
 """This is a simple about us page"""
 def aboutus(request):
     html = "aboutus.html"
     return render(request, html)
+
+
+
+'''DO NOT USE!!! This is used for adding games to Database
+But leave alone in case we need to add more to database.'''
+
+@staff_member_required
+def get_games(request):
+    # game_id is for when you would like to add and specific id.
+    game_id = []
+    all_games = {}
+    for i in game_id:
+        url = f'https://api.rawg.io/api/games/{i}?key={API}'
+        print(url)
+        response = requests.get(url)
+        if response.status_code == 404:
+            KeyError('Does not exist')
+        else:
+            i = response.json()
+            # games = data['ratings']
+            # print(games)
+            Game.objects.create(
+                name = i['name'],
+                esrb_rating = i['esrb_rating'],
+                rating = i['rating'],
+                metacritic = i['metacritic'],
+                description_raw=i['description_raw'],
+                genres=i['genres'],
+                slug = i['slug'],
+                background_image = i['background_image'],
+                game_id=i['id'],
+                released=i['released']
+            )
+            if not Game.objects.filter(name=i['name']).exists():
+                print(i)
+                i.save()
+                all_games = Game.objects.all()
+
+
+
+    return render (request, 'games_list.html', { "all_games":
+    all_games} )

@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 from capstone_app import views
@@ -22,10 +23,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('game/<int:game_id>/', views.gameview, name='gameview'),
-    path('add_review/', views.add_review, name='add_review'),
+    path('search/', views.searchview, name='search_result'),
+    # path('create_gameslist/', views.gameslist, name='gameslist'),
+    path('games_list/', views.get_games, name = "get_games"),
+    path('add_review/<int:game_id>/', views.add_review, name='add_review'),
     path('signup/', views.signup_view, name='signup'),
     path('admin/', admin.site.urls),
-    path('login/', views.LoginView.as_view()),
+    path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.logout_view),
     path('player/<int:user_id>/', views.PlayerView.as_view(), name="playerview"),
     path('reviews/', views.ReviewsView.as_view(), name='review'),

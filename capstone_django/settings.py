@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # ADDED APPS
     'capstone_app',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -147,3 +148,6 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+'''Form templates using bootstrap'''
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

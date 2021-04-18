@@ -1,3 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Ceviche+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* BACKGROUND FOR MAJORITY OF WEBSITE */
 #canvas {
     display: block;
     width: 100%;
@@ -5,89 +22,184 @@
     margin: 0 auto;
     background: black;
     z-index: -1;
-    position: absolute;
+    position: fixed;
     bottom: 0;
   }
 
-  /* Be sure to not add overflow to parent element for sticky to work*/
-.navbar {
-  display: inline-block;
-  position: fixed !important;
-  background-color: #00e0139f;
-  z-index: 100;
-  width: 100%;
+/* SCROLL BAR CSS */
+
+::-webkit-scrollbar{
+	width: 10px;
+	background: transparent;
+  display: hidden;
 }
 
-/* ANIMATION */
-@keyframes flicker {
-  from {
-    text-shadow:
-      0 0 5px #fafafa,
-      0 0 10px #fafafa,
-      0 0 20px #00ff22,
-      0 0 40px #00ff22;
-  }
-  to {
-    text-shadow:
-      0 0 5px #2ff1409f,
-      0 0 10px #2ff1409f,
-      0 0 20px #00e0139f,
-      0 0 40px #00e0139f;
-  }
+::-webkit-scrollbar-track{
+	/* background:transparent; */
+  display: none;
 }
 
-/* ATTACH ANIMATION */
-.brand {
-  animation: flicker 1s ease-in-out infinite alternate;
-  font-size: large;
+::-webkit-scrollbar-thumb
+{
+	background-image: -webkit-linear-gradient(90deg,
+                        rgb(45, 219, 53) 0%,
+											  rgb(40, 151, 46) 25%,
+											  transparent 100%,
+											  rgb(22, 92, 25) 75%,
+											  transparent)
 }
 
-#navbarNav{
-  animation: flicker 1s ease-in-out infinite alternate;
-  text-decoration: underline;
-  font-size: large;
-}
+/* ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} */
 
-.scrolling-wrapper {
-  color:rgba(247, 242, 235, 0.438);
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-  position: relative;
-  top: 615px;
-  /* margin-top: 30px; */
-  /* bottom: 50px; */
-}
 .scrolling-wrapper > .card-transparent {
   color:rgba(247, 242, 235, 0.185);
   display: inline-block;
   /* background-color: rgba(255, 255, 255, 0.9); */
 }
 
-.form{
-  display: inline-block;
-  position: relative;
-  top: 120px;
-  margin-left: 20px;
-}
-
-.footer{
-  /* display: inline-block; */
-  position: absolute;
-  background-color: rgba(85, 83, 83, 0.171);
-  color: #fafafa;
+hr.rounded {
+  border-radius: 5px;
+  border-top: 8px solid white;
   z-index: 100;
-  width: 100%;
-  bottom: 0;
 }
 
-.link{
-  /* text-align: center; */
-  color: #fafafa;
-  /*
+/* CSS for title on main page */
+
+.lasvegas {
+  font-family: 'Ceviche One';
+  font-size:200px;
+  /* margin-bottom: -250px; */
+  line-height: 75%;
+  position: relative;
+  top: 20px;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  text-shadow:
+     1px 5px 4px rgba(0,0,0,.3),
+    0 0 2px rgba(255,255,255,1),
+    0 0 10px rgba(255,255,255,1),
+    0 0 20px rgba(255,255,255,1),
+    0 0 30px rgba(255,255,255,1),
+    0 0 40px #00ff2a,
+    0 0 70px #34ff02,
+    0 0 80px #26ff00,
+    0 0 100px #33ff00;
+
+}
+
+
+.lasvegas span{
+  animation: blink .3s infinite alternate;
+}
+
+.lasvegas span.delay{
+  animation-duration:6s;
+  animation-delay: 2s;
+  animation-direction: alternate;
+  cubic-bezier: (0.5, 0.2, 0.3, 1.0);
+}
+
+
+@keyframes blink {
+  0%   {}
+  50%  {}
+  60%{
+    text-shadow:
+      0 0 2px rgba(255, 255, 255, .1),
+      0 0 10px rgba(255, 255, 255, .4);
+
+    text-stroke: 2px rgba(255,255,255,0.05);
+  }
+  70%{
+    text-shadow:
+      0 0 2px rgba(255,255,255,1),
+      0 0 10px rgba(255,255,255,1),
+      0 0 20px rgba(255,255,255,1),
+      0 0 30px rgba(255,255,255,1),
+      0 0 40px #000000,
+      0 0 70px #000000,
+      0 0 80px #000000,
+      0 0 100px #000000;
+  }
+  80%{
+    text-shadow:
+      0 0 2px rgba(255, 255, 255, .1),
+      0 0 10px rgba(255, 255, 255, .4);
+
+    text-stroke: 2px rgba(255,255,255,0.05);
+  }
+  100% {
+    text-shadow:
+      0 0 2px rgba(255,255,255,1),
+      0 0 10px rgba(255,255,255,1),
+      0 0 20px rgba(255,255,255,1),
+      0 0 30px rgba(255,255,255,1),
+      0 0 40px #000000,
+      0 0 70px #000000,
+      0 0 80px #000000,
+      0 0 100px #000000;
+  }
+}
+
+
+
+/* Used for Scroll button on main page */
+
+section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.scroll-down {
+  height: 50px;
+  width: 30px;
+  border: 2px solid white;
   position: absolute;
-  right: 0;
-  */
-  /* margin-left: 50px; */
-  float: right;
+  left: 50%;
+  bottom: 20px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.scroll-down::before,
+.scroll-down::after {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  height: 10px;
+  width: 10px;
+  transform: translate(-50%, -100%) rotate(45deg);
+  border: 2px solid white;
+  border-top: transparent;
+  border-left: transparent;
+  animation: scroll-down 1s ease-in-out infinite;
+}
+.scroll-down::before {
+  top: 30%;
+  animation-delay: 0.3s;
+  /* animation: scroll-down 1s ease-in-out infinite; */
+}
+
+@keyframes scroll-down {
+  0% {
+    /* top:20%; */
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    top: 90%;
+    opacity: 0;
+  }
 }

@@ -43,7 +43,7 @@
 #review{
   display: flex;
   flex-direction: column;
-  background-color: rgb(65, 73, 82);
+  background-color: rgba(65, 73, 82, 0.555);
   border: 2px solid #00e0139f;
   border-radius: 16px;
   text-align: center;
@@ -68,6 +68,7 @@
   height: 70%;
   overflow-y: scroll;
   margin: 0px auto;
+  color:rgb(219, 227, 235);
 }
 
 .game_tags{
@@ -107,23 +108,8 @@
   width: 100%;
 }
 
-/* .scrolling-wrapper {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-  position: relative;
-  top: 30rem;
-  /* margin-top: 30px; 
-}
-.scrolling-wrapper > .card {
-  display: inline-block;
-}
-
 .this-user {
   position: relative;
   top: 120px;
   color: aliceblue;
-} */
-/* .game{
-    top: 50px;
-} */
+}

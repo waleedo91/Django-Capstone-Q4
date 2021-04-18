@@ -1,41 +1,35 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/aboutus.css' %}">
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/aboutus.css' %}"
-    />
-  </head>
-  <header>
-    {% include 'navbar.html' %}
-  </header>
-  <body>
-  <div class="card" style="width: 50rem;">
-  <div class="card-body">
-    <h1 class="about" style="text-align: center;">About Us</h1>
-    <h3>What is up, and I can not stress this enough, "My Gamers"!</h3>
-    <br/>
-    <h3>Do you like games, do you like talking about games?</h3>
-    <br/>
-    <h3>Well here at Hype Games you can find any game of your liking 
-    whether it be any genre and if you find the game good or bad, you can review any game you want
-    to your hearts content! : )</h3>
+{% block content %}
+{% include 'navbar.html' %}
+
+  <div class='aboutus-container'>
+      <h1 class='about-header'>About Us!</h1>
+      <p class='about'>We are just a few developers who wanted to provide a database for gamers worldwide!
+      <p class='about'>Growing up in different parts in the US but thinking alike we came up with an awesome website for our fellow gamers to find a game easily and check out how other players thought about a game.</p>
+      <p class='about'>And we (JayMoney, Waldo, JuicyJonny and Darizzle) Thank you for checking out our site and hope you find the next game you are about to play!</p>
+      <p class='about'>Don't forget to leave a review and your favorite games!</p>
+
+      {% comment %} <p class='about'>What is up, and I can not stress this enough, "My Gamers"!
+      <br/>
+      <p class='about'>Do you like games, do you like talking about games?</p>
+      <br/>
+      <p class='about'>Well here at Hype Games you can find any game of your liking
+      whether it be any genre and if you find the game good or bad, you can review any game you want
+      to your hearts content! :)</p> {% endcomment %}
   </div>
-  </div>
- 
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <p></p>
 
- <canvas id="canvas">
 
-    <script src="{% static '/js/index.js' %}"></script>
-  </body>
-</html>
-
+  {% include 'footer.html' %}
+  <canvas id='canvas'></canvas>
+{% endblock %}

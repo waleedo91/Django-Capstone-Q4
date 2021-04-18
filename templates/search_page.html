@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<h1 class='search-header'>search results</h1>
+<br/>
+<div id='row-search'>
+{% for game in results.results %}
+    <div class="card-transparent" id='game-result' style="width: 18rem; margin: 5px;">
+        <a href='/game/{{game.id}}'>
+            <img
+            src="{{ game.background_image }}"
+            class="card-img-top"
+            alt="Image of game"
+            style="height: 10rem;"
+            >
+        </a>
+        <div class="card-body">
+            <h5 class="card-title text-truncate"><a href="/game/{{game.id}}">{{ game.name }}</a></h5>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% include 'footer.html' %}
+<canvas id='canvas'></canvas>
+{% endblock %}
