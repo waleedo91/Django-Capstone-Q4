@@ -27,11 +27,6 @@ body {
   }
 
 /* SCROLL BAR CSS */
-.block {
-  /* display: hidden; */
-  visibility: hidden;
-  font-size: 40px;
-}
 
 ::-webkit-scrollbar{
 	width: 10px;

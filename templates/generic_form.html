@@ -3,7 +3,6 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <body>
-    <canvas id='canvas'></canvas>
     {% include 'navbar.html' %}
     <br/>
     {% if request.path != '/signup/' %}
@@ -32,4 +31,5 @@
     </body>
 
     {% include 'footer.html' %}
+    <canvas id='canvas'></canvas>
 {% endblock %}
