@@ -26,7 +26,7 @@ class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=20, null=False, blank=False)
     about = models.TextField(null=True)
-    favorite_games = models.CharField(max_length=100, null=True, blank=True)
+    favorite_games = models.ManyToManyField(Game)
     registration_date = models.DateField(default=django.utils.timezone.now)
     id = models.AutoField(primary_key=True, editable=False)
 

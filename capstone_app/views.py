@@ -101,6 +101,22 @@ class PlayerView(View):
         )
 
 
+"""Favorite games for your favorite games"""
+def favorites(request, game_id, user_id):
+    player = Player.objects.get(id=user_id)
+    game = Game.objects.get(game_id=game_id)
+    if game not in player.favorite_games.all():
+        player.favorite_games.add(game_id=game_id)
+        player.save()
+        print(player.favorite_games.all())
+    else:
+        for g in player.favorite_games.all():
+            player.favorite_games.remove(game_id=game_id)
+            player.save()
+        print(player.favorite_games.all())
+    return render(request, 'game.html')
+
+
 """View created to show all reviews """
 
 # https://api.rawg.io/api/games/{game_id}/reddit?key={API}

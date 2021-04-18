@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+{% comment %} included the link tag for the player css file, 
+the script tag, and the canvas id {% endcomment %}
+<canvas id='canvas'></canvas>
+{% include 'navbar.html' %}
+<link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/css/player.css' %}"
+    />
   <div class="this-user">
     <h1>Gamer</h1>
     <h2>{{user}}</h2>
   </div>
-{% endblock %}
+</div>
+    <script src="{% static 'js/index.js' %}"></script>
+  {% endblock %}

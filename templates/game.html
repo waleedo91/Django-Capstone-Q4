@@ -34,6 +34,12 @@
     <h1 class=game-review>title:{{ r.title }}</h1>
     {% endfor %}
 
-
+    {% if user.is_authenticated %}
+        {%if game not in favorite_games %}
+            <h4><button><a href="/game/{{game.game_id}}">Favorite</a></button></h4>
+        {%else%}
+            <h4><button><a href="/game/{{game.game_id}}">Unfavorite</a></button></h4>
+        {%endif%}
+    {% endif %}
   <canvas id='canvas'></canvas>
 {% endblock %}
