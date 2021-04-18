@@ -70,11 +70,14 @@ def gameview(request, game_id):
     # resp = game.json()
     game = Game.objects.get(game_id=game_id)
     review = GameReview.objects.filter(game_id=game.id)
-    print(review)
+    reddit_reviews_url = f'https://api.rawg.io/api/games/{ game_id }/reddit?key={API}'
+    reddit_reviews_request = requests.request("GET", reddit_reviews_url)
+    reddit_reviews = reddit_reviews_request.json()
     return render(request, 'game.html', {
         # 'game': resp,
         'game':game,
         'review': review,
+        'reddit_reviews': reddit_reviews
         })
 
 
@@ -84,7 +87,6 @@ def searchview(request):
     url = f'https://api.rawg.io/api/games?key={API}&page_size=40&search="{ search_results }"'
     game = requests.request("GET", url)
     resp = game.json()
-    print(resp)
     return render(request, 'search_page.html', {'results': resp})
 
 
