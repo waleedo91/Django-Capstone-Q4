@@ -8,12 +8,12 @@
   <div class="scrolling-wrapper">
     {% for game in games.results %}
     <div class="card-transparent" style="width: 18rem">
-      <img
+      <a href="/game/{{game.id}}"><img
         class="card-img-top"
         src="{{ game.background_image }}"
         alt="Card image cap"
         style="height: 10rem"
-      />
+      /> </a>
       <div class="card-body">
 
         <h5 class="card-title text-truncate" ><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
@@ -32,13 +32,12 @@
   <div class="scrolling-wrapper">
     {% for game in multiplayer.results %}
     <div class="card-transparent" style="width: 18rem">
-      <img
+      <a href="/game/{{game.id}}"><img
         class="card-img-top"
         src="{{ game.background_image }}"
         alt="Card image cap"
         style="height: 10rem"
-
-      />
+      /> </a>
       <div class="card-body">
 
         <h5 class="card-title text-truncate"><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
@@ -57,12 +56,12 @@
   <div class="scrolling-wrapper">
     {% for game in action.results %}
     <div class="card-transparent" style="width: 18rem">
-      <img
+      <a href="/game/{{game.id}}"><img
         class="card-img-top"
         src="{{ game.background_image }}"
         alt="Card image cap"
         style="height: 10rem"
-      />
+      /> </a>
       <div class="card-body">
 
         <h5 class="card-title text-truncate"><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
@@ -81,12 +80,12 @@
   <div class="scrolling-wrapper">
     {% for game in indie.results %}
     <div class="card-transparent" style="width: 18rem">
-      <img
+      <a href="/game/{{game.id}}"><img
         class="card-img-top"
         src="{{ game.background_image }}"
         alt="Card image cap"
         style="height: 10rem"
-      />
+      /> </a>
       <div class="card-body">
 
         <h5 class="card-title text-truncate"><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
@@ -106,13 +105,12 @@
     <div class="scrolling-wrapper">
       {% for game in rpg.results %}
       <div class="card-transparent" style="width: 18rem">
-        <img
+        <a href="/game/{{game.id}}"><img
           class="card-img-top"
           src="{{ game.background_image }}"
           alt="Card image cap"
           style="height: 10rem"
-          onerror="this.onerror=null;this.src='http:example.com/existent-image.jpg';"
-        />
+        /> </a>
         <div class="card-body">
 
           <h5 class="card-title text-truncate"><a href="/game/{{game.id}}" class='title-color'>{{ game.name }}</a></h5>
