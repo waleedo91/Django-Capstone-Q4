@@ -20,6 +20,11 @@
         <p class="card-text">Released: {{ game.released}}</p>
         <p class="card-text">Metacritic: {{ game.metacritic}}</p>
         <p class="card-text">Rating: {{ game.rating }}</p>
+        {% if game.esrb_rating.name != null %}
+          <p class='card-text'>ESRB Rating: {{ game.esrb_rating.name }}</p>
+        {% else %}
+          <p class='card-text'>ESRB Rating: N/A</p>
+        {% endif %}
       </div>
     </div>
     {% endfor %}
@@ -44,6 +49,11 @@
         <p class="card-text">Released: {{ game.released}}</p>
         <p class="card-text">Metacritic: {{ game.metacritic}}</p>
         <p class="card-text">Rating: {{ game.rating }}</p>
+        {% if game.esrb_rating.name != null %}
+          <p class='card-text'>ESRB Rating: {{ game.esrb_rating.name }}</p>
+        {% else %}
+          <p class='card-text'>ESRB Rating: N/A</p>
+        {% endif %}
       </div>
     </div>
     {% endfor %}
@@ -68,6 +78,11 @@
         <p class="card-text">Released: {{ game.released}}</p>
         <p class="card-text">Metacritic: {{ game.metacritic}}</p>
         <p class="card-text">Rating: {{ game.rating }}</p>
+        {% if game.esrb_rating.name != null %}
+          <p class='card-text'>ESRB Rating: {{ game.esrb_rating.name }}</p>
+        {% else %}
+          <p class='card-text'>ESRB Rating: N/A</p>
+        {% endif %}
       </div>
     </div>
     {% endfor %}
@@ -92,6 +107,11 @@
         <p class="card-text">Released: {{ game.released}}</p>
         <p class="card-text">Metacritic: {{ game.metacritic}}</p>
         <p class="card-text">Rating: {{ game.rating }}</p>
+        {% if game.esrb_rating.name != null %}
+          <p class='card-text'>ESRB Rating: {{ game.esrb_rating.name }}</p>
+        {% else %}
+          <p class='card-text'>ESRB Rating: N/A</p>
+        {% endif %}
       </div>
     </div>
     {% endfor %}
@@ -99,8 +119,6 @@
 
   <br/>
   <br/>
-
-
     <h2 class='genre-title'>RPG Games</h2>
     <div class="scrolling-wrapper">
       {% for game in rpg.results %}
@@ -117,6 +135,11 @@
           <p class="card-text">Released: {{ game.released}}</p>
           <p class="card-text">Metacritic: {{ game.metacritic}}</p>
           <p class="card-text">Rating: {{ game.rating }}</p>
+          {% if game.esrb_rating.name != null %}
+            <p class='card-text'>ESRB Rating: {{ game.esrb_rating.name }}</p>
+          {% else %}
+            <p class='card-text'>ESRB Rating: N/A</p>
+          {% endif %}
         </div>
       </div>
       {% endfor %}
