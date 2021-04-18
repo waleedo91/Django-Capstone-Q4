@@ -30,10 +30,12 @@
     <div class='head'>
       <form action='{% url "search_result" %}' method='post'>
         {% csrf_token %}
-        <input  class='search-form' name='query' type='text' placeholder='Search for a game here..'>
-        <button type='submit' name='button'>Submit</button>
+        <input  class='search-form ' name='query' type='text' placeholder='Ask me about my daaaaaaaaata-base!!!!'>
+        <button class='btn btn-secondary search-button' type='submit' name='button'>Submit</button>
       </form>
     </div>
+
+
 
     <span class="navbar-text">
 

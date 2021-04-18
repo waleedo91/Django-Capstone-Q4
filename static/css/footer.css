@@ -1,0 +1,26 @@
+.foot-container {
+    position: relative;
+    bottom: 0;
+    background-color: rgba(143, 143, 143, 0.733);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+
+}
+
+#aboutus-link {
+    position: relative;
+    left: 500px;
+}
+
+.copyright {
+    color: white;
+    margin-left: 10px;
+}
+
+/* Used to keep footer at bottom without converging to cards */
+.block {
+    visibility: hidden;
+    font-size: 40px;
+}
