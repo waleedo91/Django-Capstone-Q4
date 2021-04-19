@@ -3,6 +3,9 @@
 {% block content %}
   <div class="this-user">
     <h1>Gamer</h1>
-    <h2>{{user}}</h2>
+    <h2>{{player.user}}</h2>
+
+    <h2>Favorite Games</h2>
+    {% include 'favorite_game.html' %}
   </div>
 {% endblock %}

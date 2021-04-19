@@ -21,17 +21,7 @@
   color:rgb(219, 227, 235);
 }
 
-#canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  background: black;
-  z-index: -1;
-  position: fixed;
-  bottom: 0;
-}
-
+/* change to stretch */
 #game_image {
   height: 300px;
   width: 350px;
@@ -67,7 +57,7 @@
   color: #00e0139f;
 }
 
-.review-text{
+#review-text{
   width: 60%;
   height: 70%;
   overflow-y: scroll;
@@ -101,17 +91,7 @@
   overflow-y: scroll;
 }
 
-
-
-/* Be sure to not add overflow to parent element for sticky to work*/
-.navbar {
-  display: inline-block;
-  position: fixed !important;
-  background-color: #00e0139f;
-  z-index: 100;
-  width: 100%;
-}
-
+/* Change color and size and text */
 .this-user {
   position: relative;
   top: 120px;
