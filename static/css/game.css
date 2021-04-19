@@ -57,7 +57,7 @@
   color: #00e0139f;
 }
 
-#review-text{
+.review-text{
   width: 60%;
   height: 70%;
   overflow-y: scroll;
