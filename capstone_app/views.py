@@ -1,13 +1,8 @@
-from os import name
-from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http import response
-from django.http.request import RAISE_ERROR
 from django.views.generic import View
 from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
-from django.urls import NoReverseMatch
 from django.shortcuts import get_object_or_404
 import requests
 
@@ -19,6 +14,7 @@ from capstone_django.settings import API
 from .forms import GameReviewForm, SignupForm, LoginForm
 from .models import Game, Player, GameReview
 from django.views.generic import View
+
 
 """Created for homepage to display popular games"""
 
@@ -33,10 +29,8 @@ def gamegenres(genre):
     for g in genres:
         if g == genre:
             url = f'https://api.rawg.io/api/games?&genres={ g }&page_size=40&key={API}'
-            # print(url)
             response = requests.request('GET', url)
             resp = response.json()
-            # print(response.json())
     return resp
 
 def index(request):
@@ -67,6 +61,14 @@ def favorites_view(request, id):
         game.favorite_games.add(request.user)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+'''To view the favorite on page'''
+
+def favorite_games_list(request):
+    user = request.user.id
+    favorite = user.favorite.all()
+    print(user)
+    return render(request, 'favorite_game.html', {'favorite': favorite})
+
 """Detailed view for a specific game via id"""
 
 def gameview(request, id):
@@ -90,6 +92,8 @@ def gameview(request, id):
 
 
 """View created to display Search Results"""
+
+
 def searchview(request):
     search_results = request.POST.get('query')
     url = f'https://api.rawg.io/api/games?key={API}&page_size=40&search="{ search_results }"'
@@ -99,35 +103,15 @@ def searchview(request):
 
 
 """View created to display User profile page"""
+
+
 def playerView(request, user_id):
     user = User.objects.get(id=user_id)
     player = Player.objects.get(user=user)
     return render(request, 'player.html', {'player':player})
 
 
-# def update_player(request, user_id):
-#     context = {}
-#     edit_player = Player.objects.get(id=user_id)
-#     if request.method == 'POST':
-
-#         form = SignupForm(request.POST)
-#         if form.is_valid():
-#             data = form.cleaned_data
-#             edit_player.name = data['name']
-#             edit_player.about = data['about']
-#             edit_player.save()
-#             return HttpResponseRedirect(reverse('edit_player', args=(user_id)))
-#     form = SignupForm(initial={
-#         'name': edit_player.name,
-#         'about': edit_player.about
-#     })
-#     context.update({'form': form})
-#     return render(request, 'generic_form.html', context)
-
-
 """View created to show all reviews """
-
-# https://api.rawg.io/api/games/{game_id}/reddit?key={API}
 
 class ReviewsView(View):
     def get(self, request):
@@ -141,7 +125,7 @@ class ReviewsView(View):
 
 
 
-# '''function to create a review for a game'''
+'''function to create a review for a game'''
 
 def add_review(request, game_id):
     if request.user.is_authenticated:
@@ -165,10 +149,16 @@ def add_review(request, game_id):
         return redirect('login')
 
 
+'''Handles error pages when not in production'''
 
 def handler404(request, exception):
     response = render(request, '404.html')
     response.status = 404
+    return response
+
+def handler500(request, exception):
+    response = render(request, '500.html')
+    response.status = 500
     return response
 
 
@@ -198,6 +188,7 @@ class SignUpView(View):
             login(request, new_user)
             return redirect(reverse('home'))
 
+'''Logs user in'''
 
 class LoginView(View):
     def get(self, request):
@@ -215,6 +206,8 @@ class LoginView(View):
                     login(request, player)
                     return HttpResponseRedirect(request.GET.get('next', '/'))
 
+'''Logs user out'''
+
 
 def logout_view(request):
     logout(request)
@@ -222,6 +215,7 @@ def logout_view(request):
 
 
 """This is a simple about us page"""
+
 def aboutus(request):
     html = "aboutus.html"
     return render(request, html)
@@ -233,35 +227,132 @@ But leave alone in case we need to add more to database.'''
 
 @staff_member_required
 def get_games(request):
-    # game_id is for when you would like to add and specific id.
-    # game_id = []
+    # game_id is for when you would like to add a specific id.
+    game_id = [
+        27024,
+        56123,
+        27036,
+        28495,
+        22511,
+        28026,
+        401808,
+        22513,
+        13537,
+        52370,
+        378578,
+        25924,
+        10073,
+        364800,
+        30799,
+        45958,
+        28224,
+        339958,
+        27969,
+        29179,
+        32577,
+        42180,
+        15642,
+        28623,
+        494369,
+        16359,
+        32575,
+        27714,
+        10213,
+        10533,
+        290856,
+        10142,
+        326292,
+        43877,
+        22509,
+        9671,
+        10428,
+        58753,
+        22571,
+        10310,
+        11147,
+        50781,
+        9853,
+        9575,
+        10296,
+        9810,
+        7485,
+        13498,
+        37669,
+        58494,
+        10125,
+        11887,
+        9831,
+        50214,
+        10724,
+        12020,
+        13536,
+        11859,
+        58175,
+        23027,
+        7689,
+        29028,
+        19103,
+        11973,
+        10035,
+        19710,
+        17822,
+        13668,
+        9767,
+        9721,
+        12536,
+        9882,
+        18240,
+        15002,
+        12024,
+        11435,
+        13627,
+        13268,
+        26184,
+        19384,
+        17875,
+        9475,
+        9830,
+        28154,
+        16944,
+        41494,
+        28179,
+        13545,
+        11142,
+        12447,
+        10141,
+        46889,
+        10548,
+        28492,
+        18272,
+        28153,
+        58616,
+        28154,
+    ]
     all_games = {}
-    # for i in game_id:
-    url = f'https://api.rawg.io/api/games/56123?key={API}'
-    print(url)
-    response = requests.get(url)
-    if response.status_code == 404:
-        KeyError('Does not exist')
-    else:
-        i = response.json()
-        # games = data['ratings']
-        # print(games)
-        Game.objects.create(
-            name = i['name'],
-            esrb_rating = i['esrb_rating'],
-            rating = i['rating'],
-            metacritic = i['metacritic'],
-            description_raw=i['description_raw'],
-            genres=i['genres'],
-            slug = i['slug'],
-            background_image = i['background_image'],
-            game_id=i['id'],
-            released=i['released']
-        )
-        if not Game.objects.filter(name=i['name']).exists():
-            print(i)
-            i.save()
-            all_games = Game.objects.all()
+    for i in game_id:
+        url = f'https://api.rawg.io/api/games/{i}?key={API}'
+        print(url)
+        response = requests.get(url)
+        if response.status_code == 404:
+            KeyError('Does not exist')
+        else:
+            i = response.json()
+            Game.objects.create(
+                name = i['name'],
+                esrb_rating = i['esrb_rating'],
+                rating = i['rating'],
+                metacritic = i['metacritic'],
+                description_raw=i['description_raw'],
+                genres=i['genres'],
+                slug = i['slug'],
+                background_image = i['background_image'],
+                game_id=i['id'],
+                released=i['released']
+            )
+            if not Game.objects.filter(name=i['name']).exists():
+                print(i)
+                i.save()
+                all_games = Game.objects.all()
 
 
 

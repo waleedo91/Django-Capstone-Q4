@@ -24,7 +24,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('game/<int:id>/', views.gameview, name='gameview'),
     path('search/', views.searchview, name='search_result'),
-    # path('create_gameslist/', views.gameslist, name='gameslist'),
     path('games_list/', views.get_games, name = "get_games"),
     path('add_review/<int:game_id>/', views.add_review, name='add_review'),
     path('signup/', views.SignUpView.as_view(), name='signup'),
@@ -35,9 +34,8 @@ urlpatterns = [
     path('favgame/<int:id>/', views.favorites_view),
     path('reviews/', views.ReviewsView.as_view(), name='review'),
     path('aboutus/', views.aboutus, name='aboutus'),
+    path('favorite/', views.favorite_games_list, name='favorite'),
     path('', include('capstone_app.urls')),
-    # path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
-# handler404 = 'capstone_app.views.handler404'

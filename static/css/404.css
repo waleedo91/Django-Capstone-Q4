@@ -24,12 +24,14 @@ width: 100%;
 height: 100%;
 background:#000;
 }
+
 .navbar{
     display: inline-block;
     background-color: #00e0139f;
     z-index: 100;
     width: 100%;
 }
+
 .fun{
     color:white;
 }

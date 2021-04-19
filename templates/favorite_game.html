@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% for i in user.favorite.all %}
+<div class="card" style="width: 18rem;">
+    <img src="{{i.background_image}}" class="card-img-top" alt="your favorite game">
+    <div class="card-body">
+        <h5 class="card-text">{{i.name}}</h5>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

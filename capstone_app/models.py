@@ -7,7 +7,6 @@ from django.utils import timezone
 # Create your models here.
 
 class Player(models.Model):
-    # Create a platform choice for user.
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=20, null=False, blank=False)
     about = models.TextField(null=True, blank=True)
@@ -26,7 +25,7 @@ class Game(models.Model):
     description_raw = models.TextField(null=True)
     background_image = models.ImageField(upload_to='static/images')
     rating = models.DecimalField(max_digits=3, decimal_places=2)
-    favorite_games = models.ManyToManyField(User, blank=True)
+    favorite_games = models.ManyToManyField(User, related_name='favorite', blank=True)
     metacritic = models.IntegerField(default=None, null=True)
     esrb_rating = models.CharField(max_length=100, null=True)
     slug = models.CharField(max_length=100, null=False)
