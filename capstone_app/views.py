@@ -9,7 +9,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.urls import NoReverseMatch
 import requests
-
+import re
 
 # API must be set in env and settings
 from capstone_django.settings import API
@@ -60,6 +60,11 @@ def index(request):
 def genre_view(request):
     url = f'https://api.rawg.io/api/games?key={API}'
 
+'''Cleans <html> tags to normal text'''
+def cleanhtml(string):
+    cleanr = re.compile('<.*?>')
+    game_information = re.sub(cleanr, '', string)
+    return game_information
 
 """Detailed view for a specific game via id"""
 from operator import itemgetter
@@ -68,16 +73,23 @@ def gameview(request, game_id):
     # url = f'https://api.rawg.io/api/games/{ game_id }?key={API}'
     # game = requests.request("GET", url)
     # resp = game.json()
+
+            
     game = Game.objects.get(game_id=game_id)
     review = GameReview.objects.filter(game_id=game.id)
     reddit_reviews_url = f'https://api.rawg.io/api/games/{ game_id }/reddit?key={API}'
     reddit_reviews_request = requests.request("GET", reddit_reviews_url)
     reddit_reviews = reddit_reviews_request.json()
+    reddit_reviews_results = reddit_reviews['results']
+    for r in reddit_reviews_results:
+        cleaned = cleanhtml(r['text'])
+        r['text'] = cleaned
+
     return render(request, 'game.html', {
         # 'game': resp,
         'game':game,
         'review': review,
-        'reddit_reviews': reddit_reviews
+        'reddit_reviews': reddit_reviews,
         })
 
 
