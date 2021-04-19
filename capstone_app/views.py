@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 import requests
-
+import re
 
 # API must be set in env and settings
 from capstone_django.settings import API
@@ -68,6 +68,11 @@ def favorite_games_list(request):
     favorite = user.favorite.all()
     print(user)
     return render(request, 'favorite_game.html', {'favorite': favorite})
+'''Cleans <html> tags to normal text'''
+def cleanhtml(string):
+    cleanr = re.compile('<.*?>')
+    game_information = re.sub(cleanr, '', string)
+    return game_information
 
 """Detailed view for a specific game via id"""
 
@@ -81,6 +86,10 @@ def gameview(request, id):
     is_favorite = False
     if game.favorite_games.filter(id=request.user.id).exists():
         is_favorite = True
+    reddit_reviews_results = reddit_reviews['results']
+    for r in reddit_reviews_results:
+        cleaned = cleanhtml(r['text'])
+        r['text'] = cleaned
 
     return render(request, 'game.html', {
         # 'game': resp,
