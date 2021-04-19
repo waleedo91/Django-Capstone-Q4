@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
 {% block content %}
+{% include 'navbar.html' %}
 
-<body>
-  <!-- get information for game from api (request.rating) -->
   <div id='game_title'>
     {% if game.rating != 0 and game.metacritic != None %}
       {% if game.rating >= 4 and game.metacritic >= 90 %}
@@ -13,7 +11,7 @@
       {% elif game.rating >= 3 and game.metacritic >= 75 %}
       <h1 class="display-4">{{ game.name }}</h1>
       <p class="text-warning">rated {{ game.rating }}/{{ game.metacritic }}</p>
-      {% elif game.rating > 3 and game.metacritic > 75 %}
+      {% elif game.rating > 3 and game.metacritic < 75 %}
       <h1 class="display-4">{{ game.name }}</h1>
       <p class="text-danger">rated {{ game.rating }}/{{ game.metacritic }}</p>
       {% endif %}
@@ -65,7 +63,7 @@
     {% if review.text != "" %}
     <div id="review">
       <p class="text-info">{{ review.name }} - posted by {{ review.username }} on {{ review.created }}</p>
-        <p class="review-text">{{ review.text }}</p>
+        <p id="review-text">{{ review.text }}</p>
     </div>
     {% endif %}
     {% endfor %}
@@ -73,6 +71,17 @@
       <h2 id='reviews_null'>This game has no reviews yet :(</h2>
     {% endif %}
   </div>
+
+   <div class='favorite-container'>
+    {% if is_favorite %}
+      <button><a href='/favgame/{{game.game_id}}'>Remove from favorites</a></button>
+    {% else %}
+      <button><a href='/favgame/{{game.game_id}}'>Add to favorites</a></button>
+    {% endif %}
+   </div>
+
+{% include 'footer.html' %}
 <canvas id="canvas">
-</body>
+
+
 {% endblock %}

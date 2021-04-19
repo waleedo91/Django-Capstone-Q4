@@ -5,7 +5,7 @@
     <body>
     {% include 'navbar.html' %}
     <br/>
-    {% if request.path != '/signup/' %}
+    {% if request.path == '/login/' %}
     <div class='form-container'>
             <h1 class='user-header'>Login</h1>
             <div class='user-form'>
@@ -16,7 +16,7 @@
                 </form>
             </div>
     </div>
-    {% else %}
+    {% elif request.path == '/signup/' %}
         <div class='form-container'>
             <h1 class='user-header'>Sign up</h1>
                 <div class='user-form'>
@@ -24,6 +24,17 @@
                         {% csrf_token %}
                         {{ form|crispy }}
                         <input type="submit" class="btn btn-success" value='Sign up'>
+                    </form>
+                </div>
+        </div>
+    {% else %}
+        <div class='form-container'>
+            <h1 class='user-header'>Profile</h1>
+                <div class='user-form'>
+                    <form action='' method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="submit" class="btn btn-success" value='Update'>
                     </form>
                 </div>
         </div>

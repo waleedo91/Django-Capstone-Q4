@@ -8,6 +8,7 @@ from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.urls import NoReverseMatch
+from django.shortcuts import get_object_or_404
 import requests
 
 
@@ -56,28 +57,35 @@ def index(request):
         'indie': indie
         })
 
+'''View to add favorite games to player profile'''
 
-def genre_view(request):
-    url = f'https://api.rawg.io/api/games?key={API}'
-
+def favorites_view(request, id):
+    game = get_object_or_404(Game, game_id=id)
+    if game.favorite_games.filter(id=request.user.id).exists():
+        game.favorite_games.remove(request.user)
+    else:
+        game.favorite_games.add(request.user)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 """Detailed view for a specific game via id"""
-from operator import itemgetter
 
-def gameview(request, game_id):
-    # url = f'https://api.rawg.io/api/games/{ game_id }?key={API}'
-    # game = requests.request("GET", url)
-    # resp = game.json()
-    game = Game.objects.get(game_id=game_id)
+def gameview(request, id):
+    game = Game.objects.get(game_id=id)
     review = GameReview.objects.filter(game_id=game.id)
-    reddit_reviews_url = f'https://api.rawg.io/api/games/{ game_id }/reddit?key={API}'
+    reddit_reviews_url = f'https://api.rawg.io/api/games/{ id }/reddit?key={API}'
     reddit_reviews_request = requests.request("GET", reddit_reviews_url)
     reddit_reviews = reddit_reviews_request.json()
+
+    is_favorite = False
+    if game.favorite_games.filter(id=request.user.id).exists():
+        is_favorite = True
+
     return render(request, 'game.html', {
         # 'game': resp,
         'game':game,
         'review': review,
-        'reddit_reviews': reddit_reviews
+        'reddit_reviews': reddit_reviews,
+        'is_favorite': is_favorite
         })
 
 
@@ -91,17 +99,30 @@ def searchview(request):
 
 
 """View created to display User profile page"""
-class PlayerView(View):
-    def get(self, request, user_id):
-        new_player = Player.objects.get(
-            id=user_id
-        )
-        return render(
-            request,
-            'player.html',
-            {'new_player': new_player}
-        )
+def playerView(request, user_id):
+    user = User.objects.get(id=user_id)
+    player = Player.objects.get(user=user)
+    return render(request, 'player.html', {'player':player})
 
+
+# def update_player(request, user_id):
+#     context = {}
+#     edit_player = Player.objects.get(id=user_id)
+#     if request.method == 'POST':
+
+#         form = SignupForm(request.POST)
+#         if form.is_valid():
+#             data = form.cleaned_data
+#             edit_player.name = data['name']
+#             edit_player.about = data['about']
+#             edit_player.save()
+#             return HttpResponseRedirect(reverse('edit_player', args=(user_id)))
+#     form = SignupForm(initial={
+#         'name': edit_player.name,
+#         'about': edit_player.about
+#     })
+#     context.update({'form': form})
+#     return render(request, 'generic_form.html', context)
 
 
 """View created to show all reviews """
@@ -117,6 +138,7 @@ class ReviewsView(View):
             html,
             {"reviews": reviews}
         )
+
 
 
 # '''function to create a review for a game'''
@@ -144,26 +166,6 @@ def add_review(request, game_id):
 
 
 
-'''Creates the game and floods into the database'''
-
-
-
-
-class PlayerView(View):
-    def get(self, request, user_id):
-        user = User.objects.get(id=user_id)
-        player = Player.objects.filter(user=user)
-        return render(
-            request,
-            'player.html',
-            {
-                'user': user,
-                'player': player,
-            }
-        )
-
-
-
 def handler404(request, exception):
     response = render(request, '404.html')
     response.status = 404
@@ -172,25 +174,29 @@ def handler404(request, exception):
 
 """Create a new profile for user"""
 
-def signup_view(request):
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            new_user = User.objects.create_user(
-                username=data['username'],
-                password=data['password']
-            )
-            Player.objects.create(
-                name=data['name'],
-                user=new_user
-            )
-        login(request, new_user)
-        return HttpResponseRedirect(reverse('home'))
+class SignUpView(View):
+    def get(self, request):
+        template_name = "generic_form.html"
+        form = SignupForm()
+        return render(request, template_name, {
+            'form': form,
+        })
 
-    form = SignupForm()
-    return render(request, 'generic_form.html', {'form': form})
-
+    def post (self, request):
+        if request.method == "POST":
+            form = SignupForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                new_user = User.objects.create_user(
+                    username=data['username'],
+                    password=data['password']
+                )
+                Player.objects.create(
+                    name=data['name'],
+                    user=new_user
+                )
+            login(request, new_user)
+            return redirect(reverse('home'))
 
 
 class LoginView(View):
@@ -228,34 +234,34 @@ But leave alone in case we need to add more to database.'''
 @staff_member_required
 def get_games(request):
     # game_id is for when you would like to add and specific id.
-    game_id = []
+    # game_id = []
     all_games = {}
-    for i in game_id:
-        url = f'https://api.rawg.io/api/games/{i}?key={API}'
-        print(url)
-        response = requests.get(url)
-        if response.status_code == 404:
-            KeyError('Does not exist')
-        else:
-            i = response.json()
-            # games = data['ratings']
-            # print(games)
-            Game.objects.create(
-                name = i['name'],
-                esrb_rating = i['esrb_rating'],
-                rating = i['rating'],
-                metacritic = i['metacritic'],
-                description_raw=i['description_raw'],
-                genres=i['genres'],
-                slug = i['slug'],
-                background_image = i['background_image'],
-                game_id=i['id'],
-                released=i['released']
-            )
-            if not Game.objects.filter(name=i['name']).exists():
-                print(i)
-                i.save()
-                all_games = Game.objects.all()
+    # for i in game_id:
+    url = f'https://api.rawg.io/api/games/56123?key={API}'
+    print(url)
+    response = requests.get(url)
+    if response.status_code == 404:
+        KeyError('Does not exist')
+    else:
+        i = response.json()
+        # games = data['ratings']
+        # print(games)
+        Game.objects.create(
+            name = i['name'],
+            esrb_rating = i['esrb_rating'],
+            rating = i['rating'],
+            metacritic = i['metacritic'],
+            description_raw=i['description_raw'],
+            genres=i['genres'],
+            slug = i['slug'],
+            background_image = i['background_image'],
+            game_id=i['id'],
+            released=i['released']
+        )
+        if not Game.objects.filter(name=i['name']).exists():
+            print(i)
+            i.save()
+            all_games = Game.objects.all()
 
 
 

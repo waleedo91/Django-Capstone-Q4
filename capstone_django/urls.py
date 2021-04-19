@@ -22,16 +22,17 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
-    path('game/<int:game_id>/', views.gameview, name='gameview'),
+    path('game/<int:id>/', views.gameview, name='gameview'),
     path('search/', views.searchview, name='search_result'),
     # path('create_gameslist/', views.gameslist, name='gameslist'),
     path('games_list/', views.get_games, name = "get_games"),
     path('add_review/<int:game_id>/', views.add_review, name='add_review'),
-    path('signup/', views.signup_view, name='signup'),
+    path('signup/', views.SignUpView.as_view(), name='signup'),
     path('admin/', admin.site.urls),
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.logout_view),
-    path('player/<int:user_id>/', views.PlayerView.as_view(), name="playerview"),
+    path('player/<int:user_id>/', views.playerView, name="playerview"),
+    path('favgame/<int:id>/', views.favorites_view),
     path('reviews/', views.ReviewsView.as_view(), name='review'),
     path('aboutus/', views.aboutus, name='aboutus'),
     path('', include('capstone_app.urls')),
