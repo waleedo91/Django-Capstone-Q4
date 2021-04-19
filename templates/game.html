@@ -56,7 +56,7 @@
     {% for r in review %}
     <div id="review">
       <p class="text-info">{{ r.review }} - posted by {{ r.user }} </p>
-      <p class="review-text">{{ r.description }}</p>
+      <p id="review-text">{{ r.description }}</p>
     </div>
     {% endfor %}
     {% for review in reddit_reviews.results %}
