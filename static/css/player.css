@@ -36,6 +36,21 @@
     border: 1px solid white;
 }
 
+.edit-button {
+    background: black;
+    border-radius: 15px;
+}
+
+.button-text{
+    color: #15ff00;
+    text-decoration: none;
+}
+
+.button-text:hover{
+    color:white;
+    text-decoration: none;
+}
+
 .card.bg-success.player-container{
     max-height: 20px;
 }

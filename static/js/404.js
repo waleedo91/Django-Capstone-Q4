@@ -32,7 +32,7 @@
 			const canvas = {
 				init(options) {
 					// set webGL context
-					this.elem = document.querySelector("canvas");
+					this.elem = document.querySelector("#error");
 					const gl = (this.gl =
 						this.elem.getContext("webgl", options) ||
 						this.elem.getContext("experimental-webgl", options));

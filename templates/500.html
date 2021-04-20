@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h1>500</h1>
-	  <h3>Server must be down to bad</h3>
-	  <p class='fun'>But have fun with our cool back ground</p>
-	  <canvas></canvas>
-	  <script src="{% static 'js/500.js' %}"></script>
+{% include 'navbar.html' %}
+<div id='error-container'>
+    <h1 class="lasvegas error-head">
+    	<span>5</span>00
+  	</h1>
+	  <h3 id='error-text'>Server must be down to bad or your just SOL!</h3>
+	  <p id='fun'>But have fun with our cool background</p>
+</div>
+<canvas id='error'></canvas>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+{% include 'footer.html' %}
 {% endblock %}

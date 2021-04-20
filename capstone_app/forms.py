@@ -27,3 +27,11 @@ class SignupForm(forms.Form):
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
+
+class PlayerForm(forms.ModelForm):
+    class Meta:
+        model = Player
+        fields = {
+            'name',
+            'about'
+        }

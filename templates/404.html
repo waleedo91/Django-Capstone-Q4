@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h1>404</h1>
-	  <h3>Page not found or does not exist</h3>
-	  <p class='fun'>But have fun with our cool back ground</p>
-	  <canvas></canvas>
-	  <script src="{% static 'js/404.js' %}"></script>
+{% include 'navbar.html' %}
+<div id='error-container'>
+    <h1 class="lasvegas error-head">
+    	40<span>4</span>
+  	</h1>
+	<h3 id='error-text'>Page not found or does not exist</h3>
+	<p id='fun'>But have fun with our cool background</p>
+</div>
+<canvas id=error></canvas>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+{% include 'footer.html' %}
 {% endblock %}

@@ -19,6 +19,18 @@
     <link
       rel="stylesheet"
       type="text/css"
+      href="{% static 'css/404.css' %}"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/500.css' %}"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
       href="{% static 'css/card.css' %}"
     />
     <link
@@ -75,12 +87,20 @@
       href="{% static 'css/player.css' %}"
     />
 
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/edit_profile.css' %}"
+    />
+
   </head>
   <body>
 
     {% block content %}
     {% endblock %}
     <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/404.js' %}"></script>
+    <script src="{% static 'js/500.js' %}"></script>
   </body>
   <footer>
     {% block footer %}

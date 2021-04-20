@@ -18,7 +18,7 @@
                 </form>
             </div>
     </div>
-    {% elif request.path == '/signup/' %}
+    {% else %}
         <div class='form-container'>
                 <h1 class="lasvegas auth-head" id='sign-head'>
                     Si<span>G</span>n u<span class="delay">P</span>
@@ -28,17 +28,6 @@
                         {% csrf_token %}
                         {{ form|crispy }}
                         <input type="submit" class="btn btn-success" value='Sign up'>
-                    </form>
-                </div>
-        </div>
-    {% else %}
-        <div class='form-container'>
-            <h1 class='user-header'>Profile</h1>
-                <div class='user-form'>
-                    <form action='' method="post">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        <input type="submit" class="btn btn-success" value='Update'>
                     </form>
                 </div>
         </div>

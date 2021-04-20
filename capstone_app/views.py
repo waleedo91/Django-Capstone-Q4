@@ -12,7 +12,7 @@ import re
 from capstone_django.settings import API
 
 # Imported from capstone_app
-from .forms import GameReviewForm, SignupForm, LoginForm
+from .forms import GameReviewForm, SignupForm, LoginForm, PlayerForm
 from .models import Game, Player, GameReview
 from django.views.generic import View
 
@@ -54,7 +54,7 @@ def index(request):
 
 
 '''View to add favorite games to player profile'''
-
+@login_required
 def favorites_view(request, id):
     game = get_object_or_404(Game, game_id=id)
     if game.favorite_games.filter(id=request.user.id).exists():
@@ -166,15 +166,13 @@ def add_review(request, game_id):
 
 '''Handles error pages when not in production'''
 
-def handler404(request, exception):
-    response = render(request, '404.html')
-    response.status = 404
-    return response
+def handler404(request, *args, **argv):
+    return render(request, '404.html')
 
-def handler500(request, exception):
-    response = render(request, '500.html')
-    response.status = 500
-    return response
+
+def handler500(request, *args, **argv):
+    return render(request, '500.html')
+
 
 
 """Create a new profile for user"""
@@ -227,6 +225,16 @@ class LoginView(View):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
+
+
+def edit_profile(request, id):
+    player = Player.objects.get(id=id)
+    if request.method == 'POST':
+        form = PlayerForm(request.POST, instance=player)
+        form.save()
+        return HttpResponseRedirect(reverse('playerview', args=(id,)))
+    form = PlayerForm(instance=player)
+    return render(request, 'edit_profile.html', {'form': form})
 
 
 """This is a simple about us page"""

@@ -17,25 +17,31 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from capstone_app import views
-# Added the Player and Index urls
+from django.conf.urls import handler400, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('game/<int:id>/', views.gameview, name='gameview'),
     path('search/', views.searchview, name='search_result'),
     path('games_list/', views.get_games, name = "get_games"),
     path('add_review/<int:game_id>/', views.add_review, name='add_review'),
     path('signup/', views.SignUpView.as_view(), name='signup'),
-    path('admin/', admin.site.urls),
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.logout_view),
+    path('edit_player/<int:id>/', views.edit_profile, name='edit_player'),
     path('player/<int:user_id>/', views.playerView, name="playerview"),
     path('favgame/<int:id>/', views.favorites_view),
     path('reviews/', views.ReviewsView.as_view(), name='review'),
     path('aboutus/', views.aboutus, name='aboutus'),
     path('favorite/', views.favorite_games_list, name='favorite'),
-    path('', include('capstone_app.urls')),
+    path('', views.index, name='home' ),
+    url(r'^$', views.handler404),
+    url(r'^$', views.handler500),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
+
+handler404 = 'capstone_app.views.handler404'
+handler500 = 'capstone_app.views.handler500'

@@ -1,5 +1,7 @@
 # Django-Capstone-Q4
 
+Author's: Waleed Saleh, Jason McKee-Bakos, Darian Martinez, Jonny Sueck
+
 # Game Review MVP
 A website for hosting game reviews. Best known for its extensive lists of games and genres, expansions.
   Search for Game title, genre, or rating (ex. E, E-10+, T, M).
