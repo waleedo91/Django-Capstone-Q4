@@ -2,12 +2,14 @@
 {% load static %}
 {% block content %}
 
+<div id='fav-container'>
 {% for i in user.favorite.all %}
-<div class="card" style="width: 18rem;">
-    <img src="{{i.background_image}}" class="card-img-top" alt="your favorite game">
-    <div class="card-body">
-        <h5 class="card-text">{{i.name}}</h5>
+    <div class="card fav-games" style="width: 18rem;">
+        <img src="{{i.background_image}}" class="card-img-top image-box" alt="your favorite game">
+        <div class="card-body">
+            <h5 class="card-text title-color">{{i.name}}</h5>
+        </div>
     </div>
-</div>
 {% endfor %}
+</div>
 {% endblock %}

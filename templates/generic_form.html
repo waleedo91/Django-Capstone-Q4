@@ -7,7 +7,9 @@
     <br/>
     {% if request.path == '/login/' %}
     <div class='form-container'>
-            <h1 class='user-header'>Login</h1>
+            <h1 class="lasvegas auth-head">
+                L<span class="delay">og</span>i<span>N</span>
+            </h1>
             <div class='user-form'>
                 <form action='' method="post">
                     {% csrf_token %}
@@ -18,7 +20,9 @@
     </div>
     {% elif request.path == '/signup/' %}
         <div class='form-container'>
-            <h1 class='user-header'>Sign up</h1>
+                <h1 class="lasvegas auth-head" id='sign-head'>
+                    Si<span>G</span>n u<span class="delay">P</span>
+                </h1>
                 <div class='user-form'>
                     <form action='' method="post">
                         {% csrf_token %}

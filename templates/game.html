@@ -2,11 +2,107 @@
 {% load static %}
 {% block content %}
 {% include 'navbar.html' %}
+<h1 class="display-4" id='game-header'>{{ game.name }}</h1>
 
-  <div id='game_title'>
+<div id='surround-container'>
+  <img id="game_image" src="{{ game.background_image }}">
+  <div id='page-container'>
+
+
+
+  <div id=rel-gen>
+    <p class='game-text'><span class='sub-head'>Release Date: </span>{{ game.released }}</p>
+
+    <p id='game-text'>
+      <span class='sub-head'>Genre: </span>
+      {% for item in game.genres %}
+      {{ item.name }},
+      {% endfor %}
+    </p>
+  </div>
+
+  <div id='web-rate'>
     {% if game.rating != 0 and game.metacritic != None %}
+        {% if game.rating >= 4 and game.metacritic >= 90 %}
+        <p class="text-success"><span class='sub-head'>rated:</span> {{ game.rating }}/5  <br/><span class='sub-head'>Metaritic Rating:</span> {{ game.metacritic }}/100</p>
+        {% elif game.rating >= 3 and game.metacritic >= 75 %}
+        <p class="text-warning"><span class='sub-head'>rated: </span>{{ game.rating }}/5  <br/><span class='sub-head'>Metaritic Rating: </span>{{ game.metacritic }}/100</p>
+        {% elif game.rating > 3 and game.metacritic < 75 %}
+        <p class="text-danger"><span class='sub-head'>rated:</span>{{ game.rating }}/5  <br/><span class='sub-head'>Metaritic Rating: </span>{{ game.metacritic }}/100</p>
+        {% endif %}
+      {% elif game.rating == 0 and game.metacritic != None %}
+      <p class="text-warning"><span class='sub-head'>rated: </span>{{ game.metacritic }} / 100</p>
+      {% elif game.rating != 0 and game.metacritic == None %}
+      <p class="text-warning"><span class='sub-head'>rated: </span> {{ game.rating }}</p>
+      {% elif game.rating == 0 and game.metacritic == None %}
+      <p class="text-danger"> (NOT RATED)</p>
+      {% endif %}
+
+
+    <a href="{{ game.website }}" class='links'>{{game.name}}'s website</a>
+  </div>
+
+
+  <div id='game-d'>
+    <p class='sub-head descrip-title'>Game Description: </p>
+    <div class="game_description">
+
+      {{ game.description_raw }}
+    </div>
+  </div>
+
+  <div id='rev-fave'>
+    <a href='/add_review/{{game.game_id}}/' class='sub-head links'>Add a Review</a>
+
+    <div class='favorite-container'>
+      {% if is_favorite %}
+        <a href='/favgame/{{game.game_id}}' class='sub-head links'>Remove from favorites</a>
+      {% else %}
+        <a href='/favgame/{{game.game_id}}' class='sub-head links'>Add to favorites</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+
+
+  <div id="reviews_container">
+    <h5 id='reviews_intro'>Reddit Comments, Concerns, and Reviews</h5>
+    {% for r in review %}
+    <div id="review">
+      <p class="review-author">{{ r.review }} - posted by {{ r.user }} </p>
+      <p id="review-text">{{ r.description }}</p>
+    </div>
+    {% endfor %}
+    {% for review in reddit_reviews.results %}
+    {% if review.text != "" %}
+    <div id="review">
+      <p class="review-author">{{ review.name }} - posted by {{ review.username }}</p>
+        <p id="review-text">{{ review.text }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% if reviews.count == 0 %}
+      <h2 id='reviews_null'>This game has no reviews yet :(</h2>
+    {% endif %}
+  </div>
+
+
+
+
+{% include 'footer.html' %}
+<canvas id="canvas">
+
+
+{% endblock %}
+
+
+
+
+
+{% if game.rating != 0 and game.metacritic != None %}
       {% if game.rating >= 4 and game.metacritic >= 90 %}
-      <h1 class="display-4">{{ game.name }}</h1>
+
       <p class="text-success">rated {{ game.rating }}/{{ game.metacritic }}</p>
       {% elif game.rating >= 3 and game.metacritic >= 75 %}
       <h1 class="display-4">{{ game.name }}</h1>
@@ -24,64 +120,3 @@
     {% elif game.rating == 0 and game.metacritic == None %}
     <h1 class="display-4">{{ game.name }}</h1><p class="text-danger"> (NOT RATED)</p>
     {% endif %}
-  </div>
-  <div id="container">
-    <div class="image_container">
-      <img id="game_image" src={{ game.background_image }}>
-    </div>
-    <div class="game_tags">
-      <p>
-        release date: {{ game.released }}
-      </p>
-      <br>
-      <p>
-        genre:
-        {% for item in game.genres %}
-        {{ item.name }},
-        {% endfor %}
-      </p>
-      <br>
-      <p>
-          <a href={{ game.website }}>{{game.name}}'s website</a>
-      </p>
-      Game Description:
-      <div class="game_description">
-        {{ game.description_raw }}
-      </div>
-      <a href='/add_review/{{game.game_id}}/'>Add a Review</a>
-    </div>
-  </div>
-  <div id="reviews_container">
-    <h5 id='reviews_intro'>Reddit Comments, Concerns, and Reviews</h5>
-    {% for r in review %}
-    <div id="review">
-      <p class="text-info">{{ r.review }} - posted by {{ r.user }} </p>
-      <p class="review-text">{{ r.description }}</p>
-    </div>
-    {% endfor %}
-    {% for review in reddit_reviews.results %}
-    {% if review.text != "" %}
-    <div id="review">
-      <p class="text-info">{{ review.name }} - posted by {{ review.username }} on {{ review.created }}</p>
-        <p id="review-text">{{ review.text }}</p>
-    </div>
-    {% endif %}
-    {% endfor %}
-    {% if reviews.count == 0 %}
-      <h2 id='reviews_null'>This game has no reviews yet :(</h2>
-    {% endif %}
-  </div>
-
-   <div class='favorite-container'>
-    {% if is_favorite %}
-      <button><a href='/favgame/{{game.game_id}}'>Remove from favorites</a></button>
-    {% else %}
-      <button><a href='/favgame/{{game.game_id}}'>Add to favorites</a></button>
-    {% endif %}
-   </div>
-
-{% include 'footer.html' %}
-<canvas id="canvas">
-
-
-{% endblock %}

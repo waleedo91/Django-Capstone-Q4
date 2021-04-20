@@ -49,14 +49,10 @@ body {
 											  transparent)
 }
 
-/* ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-} */
 
 .scrolling-wrapper > .card-transparent {
   color:rgba(247, 242, 235, 0.185);
   display: inline-block;
-  /* background-color: rgba(255, 255, 255, 0.9); */
 }
 
 hr.rounded {
@@ -66,6 +62,14 @@ hr.rounded {
 }
 
 /* CSS for title on main page */
+
+#copyright {
+  font-size: 50px;
+}
+
+.home-head {
+  font-size: 360px !important;
+}
 
 .lasvegas {
   font-family: 'Ceviche One';

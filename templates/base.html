@@ -62,10 +62,17 @@
       type="text/css"
       href="{% static 'css/new_review.css' %}"
     />
+
     <link
       rel="stylesheet"
       type="text/css"
       href="{% static 'css/favorite_game.css' %}"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/player.css' %}"
     />
 
   </head>
@@ -74,7 +81,6 @@
     {% block content %}
     {% endblock %}
     <script src="{% static 'js/index.js' %}"></script>
-    <script src="{% static 'js/strippers.js' %}"></script>
   </body>
   <footer>
     {% block footer %}

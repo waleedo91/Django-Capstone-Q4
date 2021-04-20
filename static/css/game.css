@@ -1,37 +1,63 @@
-.game-review {
-  color: white
-}
+@import url('https://fonts.googleapis.com/css2?family=Ceviche+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
-#container{
+#page-container{
   display: flex;
-  grid-template-columns: 50% 50%;
-  width: 100%;
-  height: 400px;
-  /* flex-flow: column;
-  flex-wrap: wrap; */
+  flex-direction: column;
+  width: 30%;
+  background-color: rgba(65, 73, 82, 0.555);
+  border: 2px solid green;
+  border-radius: 5px;
+  padding: 5px;
 }
 
-#game_title{
-  text-align: center;
-  color:rgb(219, 227, 235);
-  margin-top: 10px;
-}
-
-#game_description{
-  color:rgb(219, 227, 235);
-}
-
-/* change to stretch */
-#game_image {
-  height: 300px;
-  width: 350px;
-  padding-top: 10px;
-}
-
-#review_container {
+#surround-container {
   display: flex;
   flex-direction: row;
-  width: 400px;
+  justify-content: space-around;
+}
+
+
+
+#rel-gen {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  color: white;
+}
+
+#web-rate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+#rev-fave {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+#game_image {
+  height: 400px;
+  width: 500px;
+  clear: right;
+  border-radius: 10px;
+  border: 3px solid green;
+}
+
+#game-header {
+  margin-top: 120px;
+  text-align: center;
+  color: #15ff00;
+  font-family: 'Ceviche One';
+  font-size: 100px;
+}
+
+#reviews_container {
+  margin-top: 80px;
 }
 
 #review{
@@ -49,6 +75,9 @@
 #reviews_intro{
   text-align: center;
   color: rgb(219, 227, 235);
+  font-family: 'Ceviche One';
+  font-size: 50px;
+  text-decoration: underline;
 }
 
 #reviews_null{
@@ -57,43 +86,54 @@
   color: #00e0139f;
 }
 
-.review-text{
+#review-text{
   width: 60%;
   height: 70%;
   overflow-y: scroll;
+  font-size: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   margin: 0px auto;
   color:rgb(219, 227, 235);
 }
 
-.game_tags{
-  display: flex;
-  flex-direction: column;
-  color:rgb(219, 227, 235);
-  height: 350px;
-  width: 400;
-  margin: auto;
-  justify-content: space-between;
+#game-text {
+  max-width: 200px;
 }
 
-.image_container{
-  display: flex;
-  justify-content: center;
-  align-self: baseline;
-  margin: 30px auto;
-  width: 500px;
-  height: 400px;
+.review-author {
+  font-family: 'Permanent Marker';
+  font-size: 20px;
+  color: rgb(224, 52, 52);
 }
 
+.descrip-title{
+  margin-bottom: -25px;
+  color: white;
+  text-decoration: underline;
+}
+
+.sub-head{
+  font-family: 'Permanent Marker';
+  font-size: 20px;
+}
+
+.links {
+  color: #15ff00;
+}
+
+.links:hover{
+  text-decoration: none;
+  color: white;
+}
 
 .game_description{
   height: 150px;
-  width: 800px;
+  width: 100%;
   overflow-y: scroll;
+  color: white;
+  margin-top: 25px;
 }
 
-/* Change color and size and text */
-.this-user {
-  position: relative;
-  top: 120px;
-  color: aliceblue;
+.game-review {
+  color: white
 }

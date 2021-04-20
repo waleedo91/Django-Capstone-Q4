@@ -4,6 +4,7 @@ from django.shortcuts import render, HttpResponseRedirect, reverse, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 import requests
 import re
 
@@ -51,6 +52,7 @@ def index(request):
         'indie': indie
         })
 
+
 '''View to add favorite games to player profile'''
 
 def favorites_view(request, id):
@@ -61,18 +63,22 @@ def favorites_view(request, id):
         game.favorite_games.add(request.user)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
 '''To view the favorite on page'''
 
 def favorite_games_list(request):
     user = request.user.id
     favorite = user.favorite.all()
-    print(user)
     return render(request, 'favorite_game.html', {'favorite': favorite})
+
+
 '''Cleans <html> tags to normal text'''
+
 def cleanhtml(string):
     cleanr = re.compile('<.*?>')
     game_information = re.sub(cleanr, '', string)
     return game_information
+
 
 """Detailed view for a specific game via id"""
 

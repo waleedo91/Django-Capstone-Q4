@@ -38,11 +38,15 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    font-family: 'Permanent Marker';  
+    font-family: 'Permanent Marker';
     width: 500px;
     height: 300px;
     padding: 3px;
     z-index: 2;
     background: rgba(253, 253, 253, 0.644);
     box-shadow: rgba(197, 190, 190, 0.829) 5px 5px 20px 25px;
+}
+
+#sign-head{
+  margin-bottom: 30px;
 }

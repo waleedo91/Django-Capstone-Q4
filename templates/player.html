@@ -1,11 +1,33 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-  <div class="this-user">
-    <h1>Gamer</h1>
-    <h2>{{player.user}}</h2>
+{% include 'navbar.html' %}
 
-    <h2>Favorite Games</h2>
+<div id='profile-container'>
+
+<div class='player-container'>
+      <h3><small>Gamer-tag:</small> {{player.user}}</h3>
+      <h5><small>Name:</small> {{player.name}}</h5>
+      <p><small>Registered:</small> {{player.registration_date}}</p>
+</div>
+
+
+<div class='profile-header'>
+  <h1 class="lasvegas">
+    Pla<span>yeR</span><br/> Pro<span class="delay">Fil</span>E
+  </h1>
+</div>
+
+  <div class="player-container">
+      <h5 id='about-header'>About me: </h5>
+      <p>{{player.about}}</p>
+  </div>
+</div>
+
+
+    <h2 id='fav-title'>Favorite Games</h2>
     {% include 'favorite_game.html' %}
   </div>
+{% include 'footer.html' %}
+<canvas id='canvas'></canvas>
 {% endblock %}

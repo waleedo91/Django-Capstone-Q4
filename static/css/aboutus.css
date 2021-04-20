@@ -1,11 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Ceviche+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
-.about-header {
-  font-family: 'Ceviche One';
-  color: black;
-  font-size: 60px;
-  text-align: center;
+.about-head {
+  margin-top: 120px;
+  z-index: 10000;
 }
 
 .about {
@@ -16,8 +14,8 @@
 }
 
 .aboutus-container{
-  position: sticky;
-  top: 300px;
+  position: relative;
+  top: 10px;
   width: 50%;
   margin: 0 auto;
   background: rgba(253, 253, 253, 0.644);
