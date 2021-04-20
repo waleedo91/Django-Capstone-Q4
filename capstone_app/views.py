@@ -251,31 +251,35 @@ But leave alone in case we need to add more to database.'''
 @staff_member_required
 def get_games(request):
     # game_id is for when you would like to add a specific id.
-    # all_games = {}
-    # for i in game_id:
-    url = f'https://api.rawg.io/api/games/{i}?key={API}'
-    print(url)
-    response = requests.get(url)
-    if response.status_code == 404:
-        KeyError('Does not exist')
-    else:
-        i = response.json()
-        Game.objects.create(
-            name = i['name'],
-            esrb_rating = i['esrb_rating'],
-            rating = i['rating'],
-            metacritic = i['metacritic'],
-            description_raw=i['description_raw'],
-            genres=i['genres'],
-            slug = i['slug'],
-            background_image = i['background_image'],
-            game_id=i['id'],
-            released=i['released']
-        )
-        if not Game.objects.filter(name=i['name']).exists():
-            print(i)
-            i.save()
-            all_games = Game.objects.all()
+    game_id = [
+       54531,
+        58829
+    ]
+    all_games = {}
+    for i in game_id:
+        url = f'https://api.rawg.io/api/games/{i}?key={API}'
+        print(url)
+        response = requests.get(url)
+        if response.status_code == 404:
+            KeyError('Does not exist')
+        else:
+            i = response.json()
+            Game.objects.create(
+                name = i['name'],
+                esrb_rating = i['esrb_rating'],
+                rating = i['rating'],
+                metacritic = i['metacritic'],
+                description_raw=i['description_raw'],
+                genres=i['genres'],
+                slug = i['slug'],
+                background_image = i['background_image'],
+                game_id=i['id'],
+                released=i['released']
+            )
+            if not Game.objects.filter(name=i['name']).exists():
+                print(i)
+                i.save()
+                all_games = Game.objects.all()
 
 
 

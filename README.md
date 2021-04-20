@@ -14,4 +14,4 @@ A website for hosting game reviews. Best known for its extensive lists of games 
 
 
 IMPORTANT!!!!
-For static files to be used when ready to deploy. You must type in terminal python manage.py collectstatic and then you will be able to set DEBUG=False.
+For static files to be used when ready to deploy. You must type in terminal "python manage.py collectstatic" while DEBUG=True and then you will be able to set DEBUG=False and run the site.
