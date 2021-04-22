@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Ceviche+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+
+#profile-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 150px;
+    margin-bottom: 50px;
+    height: 50%;
+}
+
+#fav-title{
+    color: white;
+    text-align: center;
+    font-family: 'Ceviche One';
+    font-size: 60px;
+    text-decoration: underline;
+}
+
+#about-header{
+    text-decoration: underline;
+}
+
+.player-container {
+    font-family: 'Permanent Marker';
+    background-color: rgba(48, 197, 93, 0.712);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    max-width: 300px;
+    width: 100%;
+    height: 300px;
+    margin-top: 40px;
+    border: 1px solid white;
+}
+
+.edit-button {
+    background: black;
+    border-radius: 15px;
+}
+
+.button-text{
+    color: #15ff00;
+    text-decoration: none;
+}
+
+.button-text:hover{
+    color:white;
+    text-decoration: none;
+}
+
+.card.bg-success.player-container{
+    max-height: 20px;
+}
